@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/webdriverio/bin/wdio wdio.conf.js"
+    "test": "mocha test && ./node_modules/webdriverio/bin/wdio wdio.conf.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -19,6 +19,7 @@
     "mocha": "^3.0.0",
     "wdio-mocha-framework": "^0.4.0",
     "wdio-selenium-standalone-service": "0.0.9",
-    "webdriverio": "^4.2.3"
+    "webdriverio": "^4.2.3",
+    "window-or-global": "^1.0.1"
   }
 }
