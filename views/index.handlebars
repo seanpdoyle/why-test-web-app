@@ -1,2 +1,16 @@
-<h1>{{ title }}</h1>
-<p data-role="welcome">Welcome to {{ title }}</p>
+<section data-role="messages">
+  {{#each messages as |message|}}
+    <p>{{message.author}}</p>
+    <p>{{message.message}}</p>
+  {{/each}}
+</section>
+
+<form action="/messages" method="post">
+  <label for="author">Your name:</label>
+  <input type="text" id="author" name="author">
+
+  <label for="message">Your message:</label>
+  <input type="text" id="message" name="message">
+
+  <input type="submit">
+</form>

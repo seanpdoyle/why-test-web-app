@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+  const messages = req.cookies.messages || [];
+
+  res.render("index", { messages });
 });
 
 module.exports = router;
