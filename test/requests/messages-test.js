@@ -1,4 +1,4 @@
-const assert = require("assert");
+const assert = require("chai").assert;
 const request = require("supertest");
 const app = require("../../app");
 const port = process.env.EXPRESS_PORT || 3000;
@@ -16,14 +16,14 @@ describe("/messages", () => {
 
   describe("POST", () => {
     it("creates a new message", (done) => {
+      const author = "Inquisitive User";
+      const message = "Why Test?";
+
       request(server).post("/messages").
-        send({
-          author: "Inquisitive User",
-          message: "Why Test?",
-        }).
+        send({ author, message }).
         then(({ text }) => {
-          assert.ok(text.match(/Inquisitive User/));
-          assert.ok(text.match(/Why Test\?/));
+          assert.include(text, author);
+          assert.include(text, message);
           done();
         });
     });
