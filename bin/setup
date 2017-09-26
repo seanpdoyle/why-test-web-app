@@ -10,5 +10,8 @@ if ! command -v brew > /dev/null; then
 fi
 
 brew install coreutils
+brew install selenium-server-standalone
+
+brew cask install java
 
 npm install
