@@ -19,13 +19,42 @@ describe("/messages", () => {
       const author = "Inquisitive User";
       const message = "Why Test?";
 
-      request(server).post("/messages").
+      request(server).
+        post("/messages").
         send({ author, message }).
         then(({ text }) => {
           assert.include(text, author);
           assert.include(text, message);
           done();
         });
+    });
+
+    describe("when the author is blank", () => {
+      it("renders an error message", (done) => {
+        const message = "Why Test?";
+
+        request(server).
+          post("/messages").
+          send({ message }).
+          then(({ text }) => {
+            assert.include(text, "Invalid value");
+            done();
+          });
+      });
+    });
+
+    describe("when the message is blank", () => {
+      it("displays an error message", (done) => {
+        const author = "A User";
+
+        request(server).
+          post("/messages").
+          send({ author }).
+          then(({ text }) => {
+            assert.include(text, "Invalid value");
+            done();
+          });
+      });
     });
   });
 });

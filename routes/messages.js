@@ -1,15 +1,29 @@
+const { body, validationResult } = require("express-validator/check");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", (req, res, next) => {
-  const { author, message } = req.body;
-  const messages = req.cookies.messages || [];
+router.post(
+  "/",
+  [
+    body("author").not().isEmpty(),
+    body("message").not().isEmpty(),
+  ],
+  (req, res, next) => {
+    const messages = req.cookies.messages || [];
+    const errors = validationResult(req);
 
-  messages.push({ author, message });
+    if (errors.isEmpty()) {
+      const { author, message } = req.body;
 
-  res.
-    cookie("messages", messages).
-    render("index", { messages });
-});
+      messages.push({ author, message });
+      res.cookie("messages", messages);
+    }
+
+    res.render("index", {
+      errors: errors.mapped(),
+      messages: messages,
+    });
+  }
+);
 
 module.exports = router;

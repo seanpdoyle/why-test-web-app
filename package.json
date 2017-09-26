@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "debug": "node --inspect ./bin/www",
     "test": "bin/mocha-test && bin/wdio-test"
   },
   "dependencies": {
@@ -12,6 +13,7 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-handlebars": "^3.0.0",
+    "express-validator": "^4.2.1",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
   },

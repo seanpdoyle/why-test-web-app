@@ -5,12 +5,18 @@
   {{/each}}
 </section>
 
-<form action="/messages" method="post">
+<form action="/messages" method="post" data-role="message-form">
   <label for="author">Your name:</label>
   <input type="text" id="author" name="author">
+  {{#with (lookup errors "author") as |error|}}
+    <span class="error">{{error.msg}}</span>
+  {{/with}}
 
   <label for="message">Your message:</label>
   <input type="text" id="message" name="message">
+  {{#with (lookup errors "message") as |error|}}
+    <span class="error">{{error.msg}}</span>
+  {{/with}}
 
   <input type="submit">
 </form>

@@ -7,8 +7,8 @@ describe("User visits root", () => {
       const message = "Why test?";
 
       browser.url("/");
-      browser.setValue("input[name=author]", "Inquisitive User");
-      browser.setValue("input[name=message]", "Why test?");
+      browser.setValue("input[name=author]", author);
+      browser.setValue("input[name=message]", message);
       browser.click("input[type=submit]");
 
       assert.include(messagesText(), message);
@@ -17,4 +17,5 @@ describe("User visits root", () => {
   });
 
   const messagesText = () => browser.getText("[data-role=messages]");
+  const messageForm = () => browser.getText("[data-role=message-form]");
 });
