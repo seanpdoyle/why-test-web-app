@@ -1,0 +1,5 @@
+#/bin/sh
+
+set -e
+
+./node_modules/webdriverio/bin/wdio wdio.conf.js
