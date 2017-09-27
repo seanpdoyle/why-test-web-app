@@ -15,45 +15,39 @@ describe("/messages", () => {
   });
 
   describe("POST", () => {
-    it("creates a new message", (done) => {
+    it("creates a new message", async () => {
       const author = "Inquisitive User";
       const message = "Why Test?";
 
-      request(server).
+      const { text } = await request(server).
         post("/messages").
-        send({ author, message }).
-        then(({ text }) => {
-          assert.include(text, author);
-          assert.include(text, message);
-          done();
-        });
+        send({ author, message });
+
+      assert.include(text, author);
+      assert.include(text, message);
     });
 
     describe("when the author is blank", () => {
-      it("renders an error message", (done) => {
+      it("renders an error message", async () => {
         const message = "Why Test?";
 
-        request(server).
+        const { text } = await request(server).
           post("/messages").
-          send({ message }).
-          then(({ text }) => {
-            assert.include(text, "Invalid value");
-            done();
-          });
+          send({ message });
+
+        assert.include(text, "Invalid value");
       });
     });
 
     describe("when the message is blank", () => {
-      it("displays an error message", (done) => {
+      it("displays an error message", async () => {
         const author = "A User";
 
-        request(server).
+        const { text } = await request(server).
           post("/messages").
-          send({ author }).
-          then(({ text }) => {
-            assert.include(text, "Invalid value");
-            done();
-          });
+          send({ author });
+
+        assert.include(text, "Invalid value");
       });
     });
   });
