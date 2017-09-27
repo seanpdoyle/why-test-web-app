@@ -2,12 +2,20 @@ const assert = require("chai").assert;
 const request = require("supertest");
 const app = require("../../app");
 const port = process.env.EXPRESS_PORT || 3000;
+const database = require("../../database");
+const Message = require("../../models/message");
+
+const clearDB = (done) => {
+  database.connection.db.dropDatabase(done);
+};
 
 describe("/messages", () => {
   let server;
 
-  beforeEach(() => {
-    server = app.listen(port);
+  beforeEach((done) => {
+    server = app.listen(port, () => {
+      clearDB(done);
+    });
   });
 
   afterEach((done) => {
@@ -35,7 +43,9 @@ describe("/messages", () => {
           post("/messages").
           send({ message });
 
+        const messages = await Message.find({});
         assert.include(text, "Invalid value");
+        assert.empty(messages);
       });
     });
 
@@ -47,7 +57,9 @@ describe("/messages", () => {
           post("/messages").
           send({ author });
 
+        const messages = await Message.find({});
         assert.include(text, "Invalid value");
+        assert.empty(messages);
       });
     });
   });

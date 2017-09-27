@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const Message = require("../models/message");
 
-/* GET home page. */
-router.get("/", function(req, res) {
-  const messages = req.cookies.messages || [];
+router.get("/", async (req, res) => {
+  const messages = await Message.find({});
 
   res.render("index", { messages });
 });

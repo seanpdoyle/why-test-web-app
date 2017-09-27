@@ -1,6 +1,7 @@
 const { body, validationResult } = require("express-validator/check");
 const express = require("express");
 const router = express.Router();
+const Message = require("../models/message");
 
 router.post(
   "/",
@@ -8,16 +9,15 @@ router.post(
     body("author").not().isEmpty(),
     body("message").not().isEmpty(),
   ],
-  (req, res) => {
-    const messages = req.cookies.messages || [];
+  async (req, res) => {
     const errors = validationResult(req);
+    const { author, message } = req.body;
 
     if (errors.isEmpty()) {
-      const { author, message } = req.body;
-
-      messages.push({ author, message });
-      res.cookie("messages", messages);
+      await Message.create({ author, message });
     }
+
+    const messages = await Message.find({});
 
     res.render("index", {
       errors: errors.mapped(),
