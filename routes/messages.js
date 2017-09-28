@@ -8,7 +8,7 @@ router.post(
     body("author").not().isEmpty(),
     body("message").not().isEmpty(),
   ],
-  (req, res, next) => {
+  (req, res) => {
     const messages = req.cookies.messages || [];
     const errors = validationResult(req);
 
