@@ -9,9 +9,32 @@ if ! command -v brew > /dev/null; then
   exit 1
 fi
 
-brew install coreutils
-brew install selenium-server-standalone
+packages="
+  coreutils
+  selenium-server-standalone
+  mongodb
+"
+
+for package in $packages; do
+  brew install $package || true
+done
 
 brew cask install java
+
+cat << EOF
+
+-----
+
+To have launchd start mongodb now and restart at login:
+
+  $ brew services start mongodb
+
+Or, if you don't want/need a background service you can just run:
+
+  $ mongod --config /usr/local/etc/mongod.conf
+
+-----
+
+EOF
 
 npm install
