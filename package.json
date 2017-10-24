@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "cd client && npm run build && cd ../ && node ./bin/www",
     "debug": "node --inspect ./bin/www",
-    "test": "bin/mocha-test && bin/wdio-test"
+    "test": "cd client && npm run build && cd ../ && bin/mocha-test && bin/wdio-test"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
