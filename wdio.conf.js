@@ -1,5 +1,6 @@
 const app = require('./app');
 const port = process.env.EXPRESS_PORT || 3000;
+const database = require("./database");
 
 let expressServer;
 
@@ -19,10 +20,12 @@ exports.config = {
   },
   services: ['selenium-standalone'],
 
-  onPrepare() {
+  async onPrepare() {
     expressServer = app.listen(port);
   },
-  onComplete() {
+  async onComplete() {
     expressServer.close();
+    await database.connection.db.dropDatabase();
+    await database.disconnect();
   },
 };
