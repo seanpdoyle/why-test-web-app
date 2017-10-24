@@ -5,20 +5,18 @@ const port = process.env.EXPRESS_PORT || 3000;
 const database = require("../../database");
 const Message = require("../../models/message");
 
-const clearDB = (done) => {
-  database.connection.db.dropDatabase(done);
-};
-
 describe("/messages", () => {
   let server;
 
-  beforeEach((done) => {
-    server = app.listen(port, () => {
-      clearDB(done);
-    });
+  beforeEach("Start server", (done) => {
+    server = app.listen(port, done);
   });
 
-  afterEach((done) => {
+  afterEach("Drop database", (done) => {
+    database.connection.db.dropDatabase(done);
+  });
+
+  afterEach("Shutdown server", (done) => {
     server.close(done);
   });
 
