@@ -16,6 +16,8 @@ router.post(
 
     if (errors.isEmpty()) {
       await Message.create({author, message});
+    } else {
+      res.status(400);
     }
 
     const messages = await Message.find({});

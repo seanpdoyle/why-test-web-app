@@ -27,25 +27,25 @@ describe('/messages', () => {
       const author = 'Inquisitive User';
       const message = 'Why Test?';
 
-      const {text} = await request(server)
-        .post('/messages')
-        .send({author, message});
+      const response = await request(server).
+        post('/messages').
+        send({author, message});
 
-      assert.include(text, author);
-      assert.include(text, message);
+      assert.equal(response.status, 200);
+      assert.ok(await Message.findOne({message, author}), 'Creates a Message record');
     });
 
     describe('when the author is blank', () => {
       it('renders an error message', async () => {
         const message = 'Why Test?';
 
-        const {text} = await request(server)
+        const response = await request(server)
           .post('/messages')
           .send({message});
 
-        const messages = await Message.find({});
-        assert.include(text, 'Invalid value');
-        assert.empty(messages);
+        assert.equal(response.status, 400);
+        assert.include(response.text, 'Invalid value');
+        assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });
 
@@ -53,13 +53,13 @@ describe('/messages', () => {
       it('displays an error message', async () => {
         const author = 'A User';
 
-        const {text} = await request(server)
+        const response = await request(server)
           .post('/messages')
           .send({author});
 
-        const messages = await Message.find({});
-        assert.include(text, 'Invalid value');
-        assert.empty(messages);
+        assert.equal(response.status, 400);
+        assert.include(response.text, 'Invalid value');
+        assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });
   });
