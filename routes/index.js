@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const Message = require('../models/message');
-
 router.get('/', async (req, res) => {
-  const messages = await Message.find({});
-
-  res.render('index', {messages});
+  const order = {
+    cake: 'Whole wheat',
+    name: 'Hungry Person',
+  };
+  res.render('index', { order });
 });
 
 module.exports = router;
