@@ -11,5 +11,15 @@ describe('User visits root', () => {
 
       assert.include(browser.getText('#deliver-to'), name);
     });
+
+    it('accepts the cake type', () => {
+      const cakeType = 'Whole wheat';
+
+      browser.url('/');
+      browser.click('#whole-wheat');
+      browser.click('#submit-cake-type');
+
+      assert.include(browser.getText('#cake'), cakeType);
+    });
   });
 });
