@@ -4,8 +4,14 @@ const router = express.Router();
 
 const Message = require('../models/message');
 
+router.get('/messages', async (req, res) => {
+  const messages = await Message.find({});
+
+  res.json({messages});
+});
+
 router.post(
-  '/',
+  '/messages',
   [
     body('author').not().isEmpty(),
     body('message').not().isEmpty(),
@@ -20,7 +26,7 @@ router.post(
 
     const messages = await Message.find({});
 
-    res.render('index', {
+    res.json({
       errors: errors.mapped(),
       messages: messages,
     });
