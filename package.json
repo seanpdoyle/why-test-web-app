@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cd client && npm run build && cd ../ && node ./bin/www",
+    "start": "concurrently 'node ./bin/www' 'cd client && npm start'",
     "debug": "node --inspect ./bin/www",
     "test": "cd client && npm run build && cd ../ && bin/mocha-test && bin/wdio-test"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
+    "concurrently": "^3.5.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",

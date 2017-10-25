@@ -5,7 +5,7 @@ const app = require('../../app');
 const database = require('../../database');
 const Message = require('../../models/message');
 
-const PORT = process.env.EXPRESS_PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 describe('/messages', () => {
   let server;
