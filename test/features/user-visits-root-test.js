@@ -7,7 +7,10 @@ describe('User visits root', () => {
         const order = {
           name: 'Hungry Customer'
         };
-        browser.setCookie({ name: 'order', value: JSON.stringify(order) });
+        browser.url('/');
+        browser.setValue('#name', order.name);
+        browser.click('#submit-name');
+        //browser.setCookie({ name: 'order', value: JSON.stringify(order) });
 
         browser.url('/');
 
