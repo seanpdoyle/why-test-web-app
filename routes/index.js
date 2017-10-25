@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const order = {
-    cake: 'Whole wheat',
-    name: 'Hungry Person',
-  };
+  const cookieValue = req.cookies['order'] || '{}';
+  const order = JSON.parse(cookieValue);
+  
   res.render('index', { order });
 });
 
