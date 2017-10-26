@@ -1,9 +1,20 @@
 const {assert} = require('chai');
 
-const messagesText = () => browser.getText('[data-role=messages]');
-const messageForm = () => browser.getText('[data-role=message-form]');
+const messagesText = () => browser.getText('#messages');
 
 describe('User visits root', () => {
+  // Let's write this test first
+  describe('without existing messages', () => {
+    it('starts blank', () => {
+      browser.url('/');
+
+      // Let's inline this first, then extract
+      // to a helper when we write the second tes
+      assert.empty(browser.getText('#messages'));
+    });
+  });
+
+  // Let's follow up with this test
   describe('posting a message', () => {
     it('saves the message with the author information', () => {
       const author = 'Inquisitive User';
