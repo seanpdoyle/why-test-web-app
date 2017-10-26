@@ -10,13 +10,14 @@ exports.config = {
   coloredLogs: true,
   baseUrl: `http://localhost:${port}/public`,
   framework: 'mocha',
-  reporters: ['dot'],
+  reporters: ['spec'],
+  waitForTimeout: 10 * 1000,
   capabilities: [{
     browserName: 'chrome',
+    chromeOptions: {
+      args: ['--headless'],
+    },
   }],
-  chromeOptions: {
-    args: ['--headless'],
-  },
   services: ['selenium-standalone'],
 
   onPrepare() {

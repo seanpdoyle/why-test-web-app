@@ -22,6 +22,19 @@ describe('/messages', () => {
     server.close(done);
   });
 
+  describe('GET', () => {
+    it('returns an array of all created messages', async () => {
+      const author = 'Inquisitive User';
+      const message = 'Why Test?';
+
+      const createdMessage = await Message.create({author, message});
+
+      const response = await request(app)
+        .get('/messages');
+      assert.equal()
+    });
+  });
+
   describe('POST', () => {
     it('creates a new message', async () => {
       const author = 'Inquisitive User';
@@ -29,22 +42,23 @@ describe('/messages', () => {
 
       const {text} = await request(server)
         .post('/messages')
-        .send({author, message});
+        .send({author, message})
+        .expect(201);
 
       assert.include(text, author);
       assert.include(text, message);
     });
 
     describe('when the author is blank', () => {
-      it('renders an error message', async () => {
+      it('returns an error message', async () => {
         const message = 'Why Test?';
 
-        const {text} = await request(server)
+        const response = await request(server)
           .post('/messages')
           .send({message});
 
         const messages = await Message.find({});
-        assert.include(text, 'Invalid value');
+        assert.equal(response.status, 400);
         assert.empty(messages);
       });
     });
@@ -53,12 +67,12 @@ describe('/messages', () => {
       it('displays an error message', async () => {
         const author = 'A User';
 
-        const {text} = await request(server)
+        const response = await request(server)
           .post('/messages')
           .send({author});
 
         const messages = await Message.find({});
-        assert.include(text, 'Invalid value');
+        assert.equal(response.status, 400);
         assert.empty(messages);
       });
     });
