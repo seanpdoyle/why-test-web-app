@@ -1,11 +1,12 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get("/", function(req, res) {
-  const messages = req.cookies.messages || [];
+const Message = require('../models/message');
 
-  res.render("index", { messages });
+router.get('/', async (req, res) => {
+  const messages = await Message.find({});
+
+  res.render('index', {messages});
 });
 
 module.exports = router;

@@ -24,5 +24,5 @@ exports.config = {
   },
   onComplete() {
     expressServer.close();
-  }
-}
+  },
+};

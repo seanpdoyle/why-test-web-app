@@ -1,53 +1,65 @@
-const assert = require("chai").assert;
-const request = require("supertest");
-const app = require("../../app");
-const port = process.env.EXPRESS_PORT || 3000;
+const {assert} = require('chai');
+const request = require('supertest');
 
-describe("/messages", () => {
+const app = require('../../app');
+const database = require('../../database');
+const Message = require('../../models/message');
+
+const PORT = process.env.EXPRESS_PORT || 3000;
+
+describe('/messages', () => {
   let server;
 
-  beforeEach(() => {
-    server = app.listen(port);
+  beforeEach('Start server', (done) => {
+    server = app.listen(PORT, done);
   });
 
-  afterEach((done) => {
+  afterEach('Drop database', (done) => {
+    database.connection.db.dropDatabase(done);
+  });
+
+  afterEach('Shutdown server', (done) => {
     server.close(done);
   });
 
-  describe("POST", () => {
-    it("creates a new message", async () => {
-      const author = "Inquisitive User";
-      const message = "Why Test?";
+  describe('POST', () => {
+    it('creates a new message', async () => {
+      const author = 'Inquisitive User';
+      const message = 'Why Test?';
 
-      const { text } = await request(server).
-        post("/messages").
-        send({ author, message });
+      const {text} = await request(server)
+        .post('/messages')
+        .send({author, message});
 
       assert.include(text, author);
       assert.include(text, message);
     });
 
-    describe("when the author is blank", () => {
-      it("renders an error message", async () => {
-        const message = "Why Test?";
+    describe('when the author is blank', () => {
+      it('renders an error message', async () => {
+        const message = 'Why Test?';
 
-        const { text } = await request(server).
-          post("/messages").
-          send({ message });
+        const {text} = await request(server)
+          .post('/messages')
+          .send({message});
 
-        assert.include(text, "Invalid value");
+        const messages = await Message.find({});
+        assert.include(text, 'Invalid value');
+        assert.empty(messages);
       });
     });
 
-    describe("when the message is blank", () => {
-      it("displays an error message", async () => {
-        const author = "A User";
+    describe('when the message is blank', () => {
+      it('displays an error message', async () => {
+        const author = 'A User';
 
-        const { text } = await request(server).
-          post("/messages").
-          send({ author });
+        const {text} = await request(server)
+          .post('/messages')
+          .send({author});
 
-        assert.include(text, "Invalid value");
+        const messages = await Message.find({});
+        assert.include(text, 'Invalid value');
+        assert.empty(messages);
       });
     });
   });
