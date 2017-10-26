@@ -1,8 +1,12 @@
-<input id="name">
-<input id="submit-name" type="submit">
+<form action='/' method='post'>
+  <input id="name" name='name'>
+  <input id="submit-name" type="submit">
+</form>
 
-<input type="radio" id="whole-wheat" value="Whole wheat">
-<input id="submit-cake-type" type="submit">
+<form action='/' method='post'>
+  <input type="radio" id="whole-wheat" value="Whole wheat">
+  <input id="submit-cake-type" type="submit">
+</form>
 
 <p id="deliver-to">
   {{order.name}}

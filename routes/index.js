@@ -1,15 +1,20 @@
 const express = require('express');
+const bodyParser = require('body-parser'); 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  //const cookieValue = req.cookies['order'] || '{}';
-  //const order = JSON.parse(cookieValue);
+  res.render('index');
+});
+/*
+router.use('/', async (req, res) => {
   
+  const { name, cake } = req.body;
+
   const order = {
-    name: 'Hungry Person', cake: 'Whole wheat',
+    name: name, cake: cake,
   };
   
   res.render('index', { order });
 });
-
+*/
 module.exports = router;

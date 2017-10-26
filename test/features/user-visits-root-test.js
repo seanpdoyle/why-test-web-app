@@ -3,20 +3,13 @@ const {assert} = require('chai');
 describe('User visits root', () => {
   describe('to post an order', () => {
     describe('with a customer name', () => {
-      it('pre-populates the customer name when an order already exists', () => {
-        const order = {
-          name: 'Hungry Customer'
-        };
-        browser.url('/');
-        browser.setValue('#name', order.name);
-        browser.click('#submit-name');
-        //browser.setCookie({ name: 'order', value: JSON.stringify(order) });
-
+      it('starts with a blank order', () => {
         browser.url('/');
 
-        assert.include(browser.getText('#deliver-to'), order.name);
+        assert.isEmpty(browser.getText('#deliver-to'));
+        assert.isEmpty(browser.getText('#cake'));
       });
-
+      
       it('can edit the customer name', () => {
         const name = 'Hungry Person';
 
@@ -26,8 +19,10 @@ describe('User visits root', () => {
 
         assert.include(browser.getText('#deliver-to'), name);
       });
+      
     });
 
+/*
     it('accepts the cake type', () => {
       const cakeType = 'Whole wheat';
 
@@ -37,5 +32,6 @@ describe('User visits root', () => {
 
       assert.include(browser.getText('#cake'), cakeType);
     });
+    */
   });
 });
