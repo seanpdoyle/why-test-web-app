@@ -1,5 +1,5 @@
 const app = require('./app');
-const port = process.env.EXPRESS_PORT || 3000;
+const port = process.env.PORT || 3000;
 
 let expressServer;
 
@@ -8,7 +8,7 @@ exports.config = {
     'test/features/*.js',
   ],
   coloredLogs: true,
-  baseUrl: `http://localhost:${port}/public`,
+  baseUrl: `http://localhost:${port}/`,
   framework: 'mocha',
   reporters: ['spec'],
   waitForTimeout: 10 * 1000,

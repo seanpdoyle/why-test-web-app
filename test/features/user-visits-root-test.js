@@ -6,7 +6,6 @@ describe('User visits root', () => {
   describe('without existing messages', () => {
     it('starts blank', () => {
       browser.url('/');
-
       assert.empty(getMessagesText());
     });
   });
@@ -20,7 +19,7 @@ describe('User visits root', () => {
       browser.setValue('#author-input', author);
       browser.setValue('#message-input', message);
       browser.click('#submit-button');
-      browser.waitForExist('.message');
+      browser.waitForVisible('.message');
 
       const messages = getMessagesText();
       assert.include(messages, message);

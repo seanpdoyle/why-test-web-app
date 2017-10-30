@@ -9,16 +9,18 @@ export default class App extends React.Component {
       message: '',
       author: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = (e) => {
+  handleChange(e) {
     const {name, value} = e.target;
     this.setState({
       [name]: value,
     });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     e.preventDefault();
     const newMessage = {
       message: this.state.message,
@@ -50,7 +52,7 @@ export default class App extends React.Component {
   render() {
     const messages = this.state.messages.map(message => {
       return (
-        <div key={message._id} class="message">
+        <div key={message._id} className="message">
           <p>{message.author}</p>
           <p>{message.message}</p>
         </div>

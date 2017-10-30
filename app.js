@@ -1,9 +1,6 @@
 const express = require('express');
-const expressHandlebars = require('express-handlebars');
 const path = require('path');
-const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const database = require('./database');
@@ -12,17 +9,9 @@ const messages = require('./routes/messages');
 
 const app = express();
 
-// View engine setup
-app.engine('handlebars', expressHandlebars({defaultLayout: 'app'}));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars');
-
-// Uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -37,13 +26,8 @@ app.use(function(req, res, next) {
 
 // Error handler
 app.use((err, req, res, next) => {
-  // Set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // Render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  err.status = err.status || 500;
+  res.status(err.status).send(err);
 });
 
 module.exports = app;

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+# Create bundle file if not exists
+touch public/js/bundle.js
+
+start=$(date +%s)
+
+browserify -x react -x react-dom components/index.js -o public/js/bundle.js -t [ babelify --presets [ es2015 react ] ]
+
+end=$(date +%s)
+diff=$(( $end - $start ))
+echo "React app bundled in $diff seconds"

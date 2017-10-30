@@ -7,6 +7,8 @@ const Message = require('../../models/message');
 
 const PORT = process.env.EXPRESS_PORT || 3000;
 
+const serializeObject = (obj) => JSON.parse(JSON.stringify(obj));
+
 describe('/messages', () => {
   let server;
 
@@ -27,11 +29,12 @@ describe('/messages', () => {
       const author = 'Inquisitive User';
       const message = 'Why Test?';
 
-      const createdMessage = await Message.create({author, message});
-
+      await Message.create({author, message});
+      let allMessages = await Message.find({}).lean().then(serializeObject);
+      // allMessages = allMessages.map(serializeObject);
       const response = await request(app)
         .get('/messages');
-      assert.equal()
+      assert.deepEqual(response.body, allMessages);
     });
   });
 
