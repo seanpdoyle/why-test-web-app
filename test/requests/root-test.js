@@ -1,5 +1,6 @@
 const {assert} = require('chai');
 const request = require('supertest');
+const Order = require('../../models/order');
 
 const app = require('../../app');
 
@@ -17,16 +18,17 @@ describe('/', () => {
   });
 
   describe('POST', () => {
-    it('updates the order', async () => {
+    it('updates the name on the order', async () => {
       const name = 'Inquisitive User';
 
       const response = await request(server)
         .post('/')
-        .send({name});
+        .send({name})
 
       assert.equal(response.status, 200);
       assert.include(response.text, name);
-      //assert.include(Order.get(response).name, name);
+      const order = await Order.findOne();
+      assert.equal(order.name, name);
     });
   });
 });

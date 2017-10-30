@@ -1,13 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const router = express.Router();
+const Order = require('../models/order');
 
 router.get('/', (req, res) => {
   res.render('index');
 });
 
 router.post('/', (req, res) => {
-  const order = req.body;
+  const { name } = req.body;
+  const order = Order.findOne() || Order.create()
+  order.update({ name: name });
 
   res.status(200);
   res.render('index', { order });
