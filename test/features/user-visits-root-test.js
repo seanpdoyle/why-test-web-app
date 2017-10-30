@@ -16,6 +16,7 @@ describe('User visits root', () => {
         browser.url('/');
         browser.setValue('#name', name);
         browser.click('#submit-name');
+        browser.url('/');
 
         assert.include(browser.getText('#deliver-to'), name);
       });
@@ -29,6 +30,7 @@ describe('User visits root', () => {
       browser.url('/');
       browser.click('#whole-wheat');
       browser.click('#submit-cake-type');
+      browser.url('/');
 
       assert.include(browser.getText('#cake'), cakeType);
     });

@@ -2,8 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser'); 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
   res.render('index');
+});
+
+router.post('/', (req, res) => {
+  const order = req.body;
+
+  res.status(200);
+  res.render('index', { order });
 });
 /*
 router.use('/', async (req, res) => {

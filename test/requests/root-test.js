@@ -20,15 +20,14 @@ describe('/', () => {
     it('updates the order', async () => {
       const name = 'Inquisitive User';
 
-      const {text} = await request(server)
+      const response = await request(server)
         .post('/')
         .send({name});
 
-      assert.include(text, author);
-      assert.include(text, message);
+      assert.equal(response.status, 200);
+      assert.include(response.text, name);
+      //assert.include(Order.get(response).name, name);
     });
-
-
   });
 });
 
