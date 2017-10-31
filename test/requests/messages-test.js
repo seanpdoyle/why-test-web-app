@@ -31,7 +31,6 @@ describe('/messages', () => {
 
       await Message.create({author, message});
       let allMessages = await Message.find({}).lean().then(serializeObject);
-      // allMessages = allMessages.map(serializeObject);
       const response = await request(app)
         .get('/messages');
       assert.deepEqual(response.body, allMessages);
@@ -62,7 +61,7 @@ describe('/messages', () => {
 
         const messages = await Message.find({});
         assert.equal(response.status, 400);
-        assert.empty(messages);
+        assert.isEmpty(messages);
       });
     });
 
@@ -76,7 +75,7 @@ describe('/messages', () => {
 
         const messages = await Message.find({});
         assert.equal(response.status, 400);
-        assert.empty(messages);
+        assert.isEmpty(messages);
       });
     });
   });

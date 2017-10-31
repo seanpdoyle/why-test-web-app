@@ -6,7 +6,7 @@ describe('User visits root', () => {
   describe('without existing messages', () => {
     it('starts blank', () => {
       browser.url('/');
-      assert.empty(getMessagesText());
+      assert.isEmpty(getMessagesText());
     });
   });
 
