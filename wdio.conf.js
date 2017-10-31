@@ -1,5 +1,5 @@
 const app = require('./app');
-const port = process.env.EXPRESS_PORT || 3000;
+const port = process.env.PORT || 3000;
 const database = require("./database");
 
 let expressServer;
@@ -9,22 +9,26 @@ exports.config = {
     'test/features/*.js',
   ],
   coloredLogs: true,
-  baseUrl: `http://localhost:${port}/public`,
+  baseUrl: `http://localhost:${port}/`,
   framework: 'mocha',
-  reporters: ['dot'],
+  reporters: ['spec'],
+  waitforTimeout: 10 * 1000,
   capabilities: [{
     browserName: 'chrome',
+    chromeOptions: {
+      args: [
+        '--headless',
+        '--no-sandbox',
+      ],
+    },
   }],
-  chromeOptions: {
-    args: ['--headless'],
-  },
   services: ['selenium-standalone'],
 
   async onPrepare() {
     expressServer = app.listen(port);
   },
   async onComplete() {
-    expressServer.close();
+    await expressServer.close();
     await database.connection.db.dropDatabase();
     await database.disconnect();
   },
