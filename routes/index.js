@@ -7,10 +7,10 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { name } = req.body;
-  const order = Order.findOne() || Order.create()
-  order.update({ name: name });
+
+  const order = await Order.create({ name: name })
 
   res.status(200);
   res.render('index', { order });
