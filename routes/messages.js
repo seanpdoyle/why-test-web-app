@@ -16,8 +16,6 @@ router.post('/', async (req, res) => {
 
     const created = await Message.create({author, message});
 
-    const messages = await Message.find({});
-
     res.status(201).send(created);
   }
 );
