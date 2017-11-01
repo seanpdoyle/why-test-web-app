@@ -37,11 +37,11 @@ describe('/', () => {
 
       await request(server)
         .post('/')
-        .send({name1});
+        .send({name: name1});
 
       const response = await request(server)
         .post('/')
-        .send({name2});
+        .send({name: name2});
       
       assert.equal(response.status, 200);
       assert.include(response.text, name2);
