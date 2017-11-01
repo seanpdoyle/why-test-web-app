@@ -11,7 +11,7 @@ exports.config = {
   baseUrl: `http://localhost:${port}/`,
   framework: 'mocha',
   reporters: ['spec'],
-  waitForTimeout: 10 * 1000,
+  waitforTimeout: 10 * 1000,
   capabilities: [{
     browserName: 'chrome',
     chromeOptions: {
