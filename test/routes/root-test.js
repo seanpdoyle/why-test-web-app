@@ -3,6 +3,7 @@ const request = require('supertest');
 const Order = require('../../models/order');
 
 const app = require('../../app');
+const database = require('../../database');
 
 const PORT = process.env.EXPRESS_PORT || 3000;
 
@@ -13,8 +14,39 @@ describe('/', () => {
     server = app.listen(PORT, done);
   });
 
-  afterEach('Shutdown server', (done) => {
-    server.close(done);
+  afterEach('Shutdown server', async () => {
+    await server.close();
+    await database.connection.db.dropDatabase();
+  });
+
+  describe('GET', () => {
+    describe('when the Order is new', () => {
+      it('renders a blank Order', async () => {
+        const response = await request(server).get('/');
+
+        assert.equal(response.status, 200);
+      });
+    });
+
+    describe('when the Order already exists', () => {
+      it('renders the Order', async () => {
+        const order = await Order.create({ name: 'Hungry User' })
+
+        const response = await request(server).get('/');
+
+        assert.equal(response.status, 200);
+        assert.include(response.text, 'Hungry User');
+      });
+
+      it('renders the Order', async () => {
+        const order = await Order.create({ name: 'Hungrier User' })
+
+        const response = await request(server).get('/');
+
+        assert.equal(response.status, 200);
+        assert.include(response.text, 'Hungrier User');
+      });
+    });
   });
 
   describe('POST', () => {

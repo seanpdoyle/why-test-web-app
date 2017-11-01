@@ -20,7 +20,6 @@ describe('User visits root', () => {
 
         assert.include(browser.getText('#deliver-to'), name);
       });
-      
     });
 
 /*

@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const Order = require('../models/order');
 
-router.get('/', (req, res) => {
-  res.render('index');
+router.get('/', async (req, res) => {
+  const order = await Order.findOne({});
+
+  res.render('index', { order });
 });
 
 router.post('/', async (req, res) => {
