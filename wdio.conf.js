@@ -13,10 +13,10 @@ exports.config = {
   framework: 'mocha',
   reporters: ['dot'],
   capabilities: [{
-    browserName: 'chrome',
+    browserName: 'firefox',
   }],
-  chromeOptions: {
-    args: ['--headless'],
+  firefoxOptions: {
+    args: ['-headless'],
   },
   services: ['selenium-standalone'],
 
