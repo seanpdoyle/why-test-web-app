@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model('Order', mongoose.Schema({
+
+const orderSchema = mongoose.Schema({
   name: { type: String }
-}));
+});
+
+orderSchema.statics.updateOrCreate = function() {
+  return this.create(...arguments);
+};
+
+module.exports = mongoose.model('Order', orderSchema); 

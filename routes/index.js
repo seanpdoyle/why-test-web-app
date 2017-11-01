@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   const { name } = req.body;
 
-  const order = await Order.create({ name: name })
+  const order = await Order.updateOrCreate({ name: name })
 
   res.status(200);
   res.render('index', { order });
