@@ -1,11 +1,11 @@
-<section data-role="messages">
+<section id="messages">
   {{#each messages as |message|}}
     <p>{{message.author}}</p>
     <p>{{message.message}}</p>
   {{/each}}
 </section>
 
-<form action="/messages" method="post" data-role="message-form">
+<form id="message-form" action="/messages" method="post" >
   <label for="author">Your name:</label>
   {{> input-with-errors errors=errors name="author"}}
 

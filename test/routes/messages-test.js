@@ -1,11 +1,16 @@
 const {assert} = require('chai');
 const request = require('supertest');
+const {jsdom} = require('jsdom');
 
 const app = require('../../app');
 const database = require('../../database');
 const Message = require('../../models/message');
 
 const PORT = process.env.EXPRESS_PORT || 3000;
+
+const parseTextFromHTML = (htmlAsString, selector) => {
+  return jsdom(htmlAsString).querySelector(selector).textContent;
+};
 
 describe('/messages', () => {
   let server;
@@ -32,6 +37,8 @@ describe('/messages', () => {
         send({author, message});
 
       assert.equal(response.status, 200);
+      assert.include(parseTextFromHTML(response.text, '#messages'), author);
+      assert.include(parseTextFromHTML(response.text, '#messages'), message);
       assert.ok(await Message.findOne({message, author}), 'Creates a Message record');
     });
 
@@ -44,7 +51,7 @@ describe('/messages', () => {
           .send({message});
 
         assert.equal(response.status, 400);
-        assert.include(response.text, 'Invalid value');
+        assert.include(parseTextFromHTML(response.text, '#message-form'), 'Invalid value');
         assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });
@@ -58,7 +65,7 @@ describe('/messages', () => {
           .send({author});
 
         assert.equal(response.status, 400);
-        assert.include(response.text, 'Invalid value');
+        assert.include(parseTextFromHTML(response.text, '#message-form'), 'Invalid value');
         assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });

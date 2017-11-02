@@ -1,7 +1,6 @@
 const {assert} = require('chai');
 
-const messagesText = () => browser.getText('[data-role=messages]');
-const messageForm = () => browser.getText('[data-role=message-form]');
+const messagesText = () => browser.getText('#messages');
 
 describe('User visits root', () => {
   describe('posting a message', () => {
