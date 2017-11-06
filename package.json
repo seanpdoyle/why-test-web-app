@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "./node_modules/.bin/nodemon ./bin/www",
     "test": "bin/mocha-test && bin/wdio-test"
   },
   "dependencies": {
@@ -20,8 +20,10 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
+    "eslint": "^4.1.1",
     "eslint-config-google": "^0.9.1",
     "mocha": "^3.0.0",
+    "nodemon": "^1.12.1",
     "supertest": "^3.0.0",
     "wdio-mocha-framework": "^0.4.0",
     "wdio-phantomjs-service": "^0.2.2",
