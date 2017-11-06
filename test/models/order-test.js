@@ -4,7 +4,10 @@ const database = require('../../database');
 
 describe('Order', () => {
   beforeEach(async () => {
-    await database.connection.db.dropDatabase();
+    const db = database.connection.db;
+    if (db) {
+      await db.dropDatabase();
+    }
   });
 
   describe('.updateOrCreate', () => {

@@ -42,6 +42,18 @@ describe('/', () => {
   });
 
   describe('POST', () => {
+    it('rejects an empty name', async () => {
+      const name = 'original name';
+      const emptyName = '';
+      const order = await Order.create({ name: 'original name' });
+      const response = await request(server).post('/').send({ name: emptyName });
+
+      assert.equal(response.status, 400);
+      assert.include(response.text, 'name is required');
+      const reloadedOrder = await Order.findOne();
+      assert.equal(reloadedOrder.name, name, 'Order name is not overwritten');
+    });
+
     it('sets the name on the order', async () => {
       const name = 'Inquisitive User';
 

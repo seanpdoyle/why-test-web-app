@@ -10,6 +10,9 @@
 
 <p id="deliver-to">
   {{order.name}}
+  {{#if errors.name}}
+    <span>{{errors.name}}</span>
+  {{/if}}
 </p>
 
 <p id="cake">
