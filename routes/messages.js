@@ -16,16 +16,15 @@ router.post(
 
     if (errors.isEmpty()) {
       await Message.create({author, message});
+      res.redirect('/');
     } else {
       res.status(400);
+
+      res.render('index', {
+        errors: errors.mapped(),
+        messages: await Message.find({}),
+      });
     }
-
-    const messages = await Message.find({});
-
-    res.render('index', {
-      errors: errors.mapped(),
-      messages: messages,
-    });
   }
 );
 

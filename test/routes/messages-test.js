@@ -28,18 +28,29 @@ describe('/messages', () => {
   });
 
   describe('POST', () => {
-    it('creates a new message', async () => {
-      const author = 'Inquisitive User';
-      const message = 'Why Test?';
+    describe('when the Message is valid', () => {
+      it('creates a new message', async () => {
+        const author = 'Inquisitive User';
+        const message = 'Why Test?';
 
-      const response = await request(server).
-        post('/messages').
-        send({author, message});
+        const response = await request(server).
+          post('/messages').
+          send({author, message});
 
-      assert.equal(response.status, 200);
-      assert.include(parseTextFromHTML(response.text, '#messages'), author);
-      assert.include(parseTextFromHTML(response.text, '#messages'), message);
-      assert.ok(await Message.findOne({message, author}), 'Creates a Message record');
+        assert.ok(await Message.findOne({message, author}), 'Creates a Message record');
+      });
+
+      it('redirects to the index', async () => {
+        const author = 'Inquisitive User';
+        const message = 'Why Test?';
+
+        const response = await request(server).
+          post('/messages').
+          send({author, message});
+
+        assert.equal(response.status, 302);
+        assert.equal(response.headers.location, '/');
+      });
     });
 
     describe('when the author is blank', () => {
