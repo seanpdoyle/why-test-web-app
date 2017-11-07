@@ -6,10 +6,10 @@ describe('User visits root', () => {
       it('starts with a blank order', () => {
         browser.url('/');
 
-        assert.isEmpty(browser.getText('#deliver-to'));
-        assert.isEmpty(browser.getText('#cake'));
+        assert.equal(browser.getText('#deliver-to'), '');
+        assert.equal(browser.getText('#cake-type'), '');
       });
-      
+
       it('can edit the customer name', () => {
         const name = 'Hungry Person';
 
@@ -22,7 +22,6 @@ describe('User visits root', () => {
       });
     });
 
-/*
     it('accepts the cake type', () => {
       const cakeType = 'Whole wheat';
 
@@ -31,8 +30,7 @@ describe('User visits root', () => {
       browser.click('#submit-cake-type');
       browser.url('/');
 
-      assert.include(browser.getText('#cake'), cakeType);
+      assert.include(browser.getText('#cake-type'), cakeType);
     });
-    */
   });
 });

@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 const router = express.Router();
 const Order = require('../models/order');
 
@@ -9,7 +9,16 @@ router.get('/', async (req, res) => {
   res.render('index', { order });
 });
 
-router.post('/', async (req, res) => {
+router.post('/cake-type', async (req, res) => {
+  const {cakeType} = req.body;
+
+  await Order.updateOrCreate({cakeType});
+
+  res.status(302);
+  res.redirect('/');
+});
+
+router.post('/name', async (req, res) => {
   const { name } = req.body;
 
   if (name) {
@@ -23,16 +32,5 @@ router.post('/', async (req, res) => {
     res.render('index', { errors });
   }
 });
-/*
-router.use('/', async (req, res) => {
-  
-  const { name, cake } = req.body;
 
-  const order = {
-    name: name, cake: cake,
-  };
-  
-  res.render('index', { order });
-});
-*/
 module.exports = router;

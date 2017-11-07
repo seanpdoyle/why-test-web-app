@@ -1,18 +1,20 @@
 const Order = require('../../models/order');
 const {assert} = require('chai');
-const database = require('../../database');
+const {mongoose, databaseUrl, options} = require('../../database');
 
 describe('Order', () => {
   beforeEach(async () => {
-    const db = database.connection.db;
-    if (db) {
-      await db.dropDatabase();
-    }
+    await mongoose.connect(databaseUrl, options);
+    await mongoose.connection.db.dropDatabase();
+  });
+
+  afterEach(async () => {
+    await mongoose.disconnect();
   });
 
   describe('.updateOrCreate', () => {
     describe('when a record already exists', () =>{
-      it('updates the record', async () => { 
+      it('updates the record', async () => {
         const existingOrder = await Order.create({ name: 'Hungry Person' })
 
         const order = await Order.updateOrCreate({name: 'Hungrier Person' });
@@ -35,6 +37,16 @@ describe('Order', () => {
         assert.equal(allOrders[0].name, name);
         assert.equal(order.name, name);
       });
+    });
+  });
+
+  describe('#cakeType', () => {
+    it('is a String', () => {
+      const nameAsAnInt = 1;
+
+      const order = new Order({ cakeType: nameAsAnInt });
+
+      assert.strictEqual(order.cakeType, nameAsAnInt.toString());
     });
   });
 
