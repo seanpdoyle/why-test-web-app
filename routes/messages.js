@@ -1,31 +1,25 @@
-const {body, validationResult} = require('express-validator/check');
 const express = require('express');
 const router = express.Router();
 
 const Message = require('../models/message');
 
-router.post(
-  '/',
-  [
-    body('author').not().isEmpty(),
-    body('message').not().isEmpty(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    const {author, message} = req.body;
+router.post('/', async (req, res) => {
+  const {author, message} = req.body;
+  const newMessage = new Message({author, message});
 
-    if (errors.isEmpty()) {
-      await Message.create({author, message});
-      res.redirect('/');
-    } else {
-      res.status(400);
+  newMessage.validateSync();
 
-      res.render('index', {
-        errors: errors.mapped(),
-        messages: await Message.find({}),
-      });
-    }
+  if (newMessage.errors) {
+    res.status(400);
+
+    res.render('index', {
+      newMessage: newMessage,
+      messages: await Message.find({}),
+    });
+  } else {
+    await newMessage.save();
+    res.redirect('/');
   }
-);
+});
 
 module.exports = router;

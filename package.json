@@ -13,7 +13,6 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-handlebars": "^3.0.0",
-    "express-validator": "^4.2.1",
     "jsdom": "9.12.0",
     "mongoose": "^4.11.13",
     "morgan": "~1.8.1",

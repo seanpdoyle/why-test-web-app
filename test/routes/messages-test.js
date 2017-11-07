@@ -62,7 +62,7 @@ describe('/messages', () => {
           .send({message});
 
         assert.equal(response.status, 400);
-        assert.include(parseTextFromHTML(response.text, '#message-form'), 'Invalid value');
+        assert.include(parseTextFromHTML(response.text, '#message-form'), 'required');
         assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });
@@ -76,7 +76,7 @@ describe('/messages', () => {
           .send({author});
 
         assert.equal(response.status, 400);
-        assert.include(parseTextFromHTML(response.text, '#message-form'), 'Invalid value');
+        assert.include(parseTextFromHTML(response.text, '#message-form'), 'required');
         assert.equal((await Message.find({})).length, 0, 'did not save the Message');
       });
     });
