@@ -7,10 +7,16 @@
 
 <form id="message-form" action="/messages" method="post" >
   <label for="author">Your name:</label>
-  {{> input-with-errors errors=errors name="author"}}
+  <input type="text" id="author" name="author">
+  {{#with (lookup errors "author") as |error|}}
+    <span class="error">{{error.msg}}</span>
+  {{/with}}
 
   <label for="message">Your message:</label>
-  {{> input-with-errors errors=errors name="message"}}
+  <textarea id="message" name="message"></textarea>
+  {{#with (lookup errors "message") as |error|}}
+    <span class="error">{{error.msg}}</span>
+  {{/with}}
 
   <input type="submit">
 </form>

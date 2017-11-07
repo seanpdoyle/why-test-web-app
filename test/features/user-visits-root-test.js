@@ -9,9 +9,9 @@ describe('User visits root', () => {
       const message = 'Why test?';
 
       browser.url('/');
-      browser.setValue('input[name=author]', author);
-      browser.setValue('input[name=message]', message);
-      browser.click('input[type=submit]');
+      browser.setValue('[name=author]', author);
+      browser.setValue('[name=message]', message);
+      browser.click('[type=submit]');
 
       assert.include(messagesText(), message);
       assert.include(messagesText(), author);
