@@ -5,8 +5,9 @@ const {jsdom} = require('jsdom');
 const app = require('../../app');
 const {mongoose, databaseUrl, options} = require('../../database');
 const Message = require('../../models/message');
+const {port} = require('../../server.config').test;
 
-const PORT = process.env.EXPRESS_PORT || 3000;
+const PORT = process.env.PORT || port;
 
 const parseTextFromHTML = (htmlAsString, selector) => {
   return jsdom(htmlAsString).querySelector(selector).textContent;
@@ -21,7 +22,8 @@ describe('/messages', () => {
     server = await app.listen(PORT);
   });
 
-  afterEach('Shutdown server', async () => {
+  afterEach('Drop database and close server', async () => {
+    await mongoose.disconnect();
     await server.close();
   });
 
@@ -31,9 +33,10 @@ describe('/messages', () => {
         const author = 'Inquisitive User';
         const message = 'Why Test?';
 
-        const response = await request(server).
-          post('/messages').
-          send({author, message});
+        const response = await request(server)
+          .post('/messages')
+          .type('form')
+          .send({author, message});
 
         assert.ok(await Message.findOne({message, author}), 'Creates a Message record');
       });
@@ -42,9 +45,10 @@ describe('/messages', () => {
         const author = 'Inquisitive User';
         const message = 'Why Test?';
 
-        const response = await request(server).
-          post('/messages').
-          send({author, message});
+        const response = await request(server)
+          .post('/messages')
+          .type('form')
+          .send({author, message});
 
         assert.equal(response.status, 302);
         assert.equal(response.headers.location, '/');
