@@ -6,7 +6,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const database = require('./database');
 const index = require('./routes/index');
 const messages = require('./routes/messages');
 

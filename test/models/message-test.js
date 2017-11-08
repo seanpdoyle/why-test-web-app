@@ -1,13 +1,15 @@
 const Message = require('../../models/message');
 const {assert} = require('chai');
-const database = require('../../database');
+const {mongoose, databaseUrl, options} = require('../../database');
 
 describe('Message', () => {
   beforeEach(async () => {
-    const db = database.connection.db;
-    if (db) {
-      await db.dropDatabase();
-    }
+    await mongoose.connect(databaseUrl, options);
+    await mongoose.connection.db.dropDatabase();
+  });
+
+  afterEach(async () => {
+    await mongoose.disconnect();
   });
 
   describe('#author', () => {

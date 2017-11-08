@@ -1,6 +1,6 @@
 const app = require('./app');
 const port = process.env.PORT || 3000;
-const database = require("./database");
+const {mongoose, databaseUrl, options} = require('./database');
 
 let expressServer;
 
@@ -24,12 +24,14 @@ exports.config = {
   }],
   services: ['selenium-standalone'],
 
-  async onPrepare() {
+  async beforeTest() {
+    await mongoose.connect(databaseUrl, options);
+    await mongoose.connection.db.dropDatabase();
     expressServer = app.listen(port);
   },
-  async onComplete() {
-    await expressServer.close();
-    await database.connection.db.dropDatabase();
-    await database.disconnect();
+
+  async afterTest() {
+    await mongoose.disconnect();
+    expressServer.close();
   },
 };
