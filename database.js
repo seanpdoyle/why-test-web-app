@@ -3,9 +3,12 @@ mongoose.Promise = global.Promise;
 
 const env = process.env.NODE_ENV || 'development';
 const databaseUrl = process.env.DATABASE_URL || `mongodb://localhost/why-test_${env}`;
-
-mongoose.connect(databaseUrl, {
+const options= {
   useMongoClient: true,
-});
+};
 
-module.exports = mongoose;
+module.exports = {
+  mongoose,
+  databaseUrl,
+  options,
+};

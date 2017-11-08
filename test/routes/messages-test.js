@@ -3,7 +3,7 @@ const request = require('supertest');
 const {jsdom} = require('jsdom');
 
 const app = require('../../app');
-const database = require('../../database');
+const {mongoose, databaseUrl, options} = require('../../database');
 const Message = require('../../models/message');
 
 const PORT = process.env.EXPRESS_PORT || 3000;
@@ -15,16 +15,14 @@ const parseTextFromHTML = (htmlAsString, selector) => {
 describe('/messages', () => {
   let server;
 
-  beforeEach('Start server', (done) => {
-    server = app.listen(PORT, done);
+  beforeEach('Start server', async () => {
+    await mongoose.connect(databaseUrl, options);
+    await mongoose.connection.db.dropDatabase();
+    server = await app.listen(PORT);
   });
 
-  afterEach('Drop database', (done) => {
-    database.connection.db.dropDatabase(done);
-  });
-
-  afterEach('Shutdown server', (done) => {
-    server.close(done);
+  afterEach('Shutdown server', async () => {
+    await server.close();
   });
 
   describe('POST', () => {
