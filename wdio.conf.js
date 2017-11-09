@@ -14,15 +14,9 @@ exports.config = {
   reporters: ['spec'],
   waitforTimeout: 10 * 1000,
   capabilities: [{
-    browserName: 'chrome',
-    chromeOptions: {
-      args: [
-        '--headless',
-        '--no-sandbox',
-      ],
-    },
+    browserName: 'phantomjs',
   }],
-  services: ['selenium-standalone'],
+  services: ['phantomjs'],
 
   async beforeTest() {
     await mongoose.connect(databaseUrl, options);

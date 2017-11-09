@@ -8,8 +8,6 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
-      - image: circleci/openjdk:9
-      - image: selenium/standalone-chrome:3.1.0
       - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo

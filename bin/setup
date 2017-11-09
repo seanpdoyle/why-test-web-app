@@ -11,15 +11,12 @@ fi
 
 packages="
   coreutils
-  selenium-server-standalone
   mongodb
 "
 
 for package in $packages; do
   brew install $package || true
 done
-
-brew cask install java
 
 cat << EOF
 
