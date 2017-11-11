@@ -33,4 +33,20 @@ router.post('/name', async (req, res) => {
   }
 });
 
+router.post('/fillings', async (req, res) => {
+  const order = await Order.updateOrCreate({fillings: ['Chocolate chips', 'Sprinkles']});
+  res.render('index');
+  /*
+  const { fillings } = req.body;
+
+  if (fillings) {
+    const order = await Order.updateOrCreate({ fillings })
+
+    //    res.status(200);
+    //  res.render('index', { order });
+  }
+    */
+});
+
+
 module.exports = router;

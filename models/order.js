@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
   cakeType: { type: String },
-  name: { type: String }
+  name: { type: String },
+  fillings: [] 
 });
 
 orderSchema.statics.updateOrCreate = async function(attributes, callback) {

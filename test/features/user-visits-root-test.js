@@ -8,6 +8,7 @@ describe('User visits root', () => {
 
         assert.equal(browser.getText('#deliver-to'), '');
         assert.equal(browser.getText('#cake-type'), '');
+        assert.equal(browser.getText('#fillings'), '');
       });
 
       it('can edit the customer name', () => {
@@ -31,6 +32,20 @@ describe('User visits root', () => {
       browser.url('/');
 
       assert.include(browser.getText('#cake-type'), cakeType);
+    });
+
+    it('accepts multiple fillings', () => {
+      const firstChoice = 'Strawberries';
+      const secondChoice = 'Banana';
+
+      browser.url('/');
+      browser.click('#strawberries');
+      browser.click('#banana');
+      browser.click('#submit-fillings');
+      browser.url('/');
+
+      assert.include(browser.getText('#fillings'), firstChoice);
+      assert.include(browser.getText('#fillings'), secondChoice);
     });
   });
 });

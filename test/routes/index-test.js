@@ -150,5 +150,19 @@ describe('Routes', () => {
       });
     });
   });
+
+  describe('POST /fillings', () => {
+    describe('when the Order is new', () => {
+      it('creates an order with the selected fillings', async () => {
+        const response = await request(server)
+          .post('/fillings')
+          .type('form')
+          .send({fillings: ['Chocolate chips', 'Sprinkles']});
+
+        const order = await Order.findOne({});
+        assert.equal(order.fillings, ['Chocolate chips', 'Sprinkles']);
+      });
+    });
+  });
 });
 

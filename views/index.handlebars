@@ -10,6 +10,16 @@
   <input id="submit-cake-type" type="submit">
 </form>
 
+<form>
+  <label for="strawberries">Strawberries</label>
+  <input type="checkbox" id="strawberries" name="filling" value="Strawberries">Strawberries<br>
+  <label for="banana">Banana</label>
+  <input type="checkbox" id="banana" name="filling" value="Banana">Banana<br>
+
+  <input id="submit-fillings" type="submit">
+</form>
+
+
 <p id="deliver-to">
   {{order.name}}
 
@@ -20,4 +30,8 @@
 
 <p id="cake-type">
   {{order.cakeType}}
+</p>
+
+<p id="fillings">
+  Strawberries, Banana
 </p>

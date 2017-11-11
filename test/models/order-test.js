@@ -59,4 +59,15 @@ describe('Order', () => {
       assert.strictEqual(order.name, nameAsAnInt.toString());
     });
   });
+
+  describe('#fillings', () => {
+    it('is an Array', () => {
+      const fillings = ['Apple', 'Bacon'];
+
+      const order = new Order({fillings});
+
+      // toObject resolves issues with mongoose metadata
+      assert.deepEqual(order.fillings.toObject(), fillings);
+    });
+  });
 });
