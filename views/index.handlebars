@@ -10,11 +10,11 @@
   <input id="submit-cake-type" type="submit">
 </form>
 
-<form>
+<form action="/fillings" method="post">
   <label for="strawberries">Strawberries</label>
-  <input type="checkbox" id="strawberries" name="filling" value="Strawberries">Strawberries<br>
+  <input type="checkbox" id="strawberries" name="fillings" value="Strawberries">Strawberries<br>
   <label for="banana">Banana</label>
-  <input type="checkbox" id="banana" name="filling" value="Banana">Banana<br>
+  <input type="checkbox" id="banana" name="fillings" value="Banana">Banana<br>
 
   <input id="submit-fillings" type="submit">
 </form>
@@ -33,5 +33,5 @@
 </p>
 
 <p id="fillings">
-  Strawberries, Banana
+  {{order.fillings}}
 </p>

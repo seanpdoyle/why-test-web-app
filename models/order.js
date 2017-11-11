@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
   cakeType: { type: String },
   name: { type: String },
-  fillings: [] 
+  fillings: { type: [] } 
 });
 
 orderSchema.statics.updateOrCreate = async function(attributes, callback) {
