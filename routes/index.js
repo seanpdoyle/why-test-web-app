@@ -35,6 +35,7 @@ router.post('/name', async (req, res) => {
 
 router.post('/fillings', async (req, res) => {
   const { fillings } = req.body;
+
   const order = await Order.updateOrCreate({fillings});
 
   res.render('index', { order });
