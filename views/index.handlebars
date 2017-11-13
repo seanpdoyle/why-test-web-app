@@ -28,6 +28,15 @@
   <input id="submit-size" type="submit">
 </form>
 
+<form action="/pickUp" method="post">
+  <select id="select-pickUp" name="pickUp">
+    <option id="8:00" value="8:00">8:00</option>
+    <option id="9:00" value="9:00">9:00</option>
+  </select>
+
+  <input id="submit-pickUp" type="submit">
+</form>
+
 <p id="deliver-to">
   {{order.name}}
 
@@ -46,4 +55,8 @@
 
 <p id="size">
   {{order.size}}
+</p>
+
+<p id="pickUp">
+  {{order.pickUp}} 
 </p>

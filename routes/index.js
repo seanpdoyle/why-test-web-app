@@ -49,4 +49,12 @@ router.post('/size', async (req, res) => {
   res.redirect('/');
 });
 
+router.post('/pickUp', async (req, res) => {
+  const { pickUp } = req.body;
+
+  const order = await Order.updateOrCreate({pickUp});
+
+  res.redirect('/');
+});
+
 module.exports = router;

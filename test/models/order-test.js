@@ -20,12 +20,14 @@ describe('Order', () => {
           cakeType: 'Plain',
           fillings: ['Blueberries'],
           size: '2',
+          pickUp: '9:00',
         };
         let bigOrder = {
           name: 'Big Person',
           cakeType: 'Plain',
           fillings: ['Apple', 'Bacon', 'Chocolate Chips'],
           size: '10',
+          pickUp: '10:00',
         };
         const existingOrder = await Order.create(smallOrder);
 
@@ -48,6 +50,7 @@ describe('Order', () => {
           cakeType: 'Whole Wheat',
           fillings: ['Macadamia Nuts'],
           size: '1',
+          pickUp: '11:00',
         }
 
         const order = await Order.updateOrCreate(healthyOrder);
@@ -99,6 +102,16 @@ describe('Order', () => {
       const order = new Order({size: sizeAsAnInt});
 
       assert.strictEqual(order.size, sizeAsAnInt.toString());
+    });
+  });
+
+  describe('#pickUp', () => {
+    it('is a String', () => {
+      const pickUp= '10:00';
+
+      const order = new Order({pickUp});
+
+      assert.strictEqual(order.pickUp, pickUp);
     });
   });
 });

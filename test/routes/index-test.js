@@ -223,6 +223,21 @@ describe('Routes', () => {
       });
     });
   });
-  
+
+  describe('POST /pickUp', () => {
+    describe('when the Order is new', () => {
+      it('creates an order with the selected time', async () => {
+        const pickUp = '8:00';
+        
+        const response = await request(server)
+          .post('/pickUp')
+          .type('form')
+          .send({pickUp});
+
+        const order = await Order.findOne({});
+        assert.strictEqual(order.pickUp, pickUp);
+      });
+    });
+  }); 
 });
 

@@ -10,6 +10,7 @@ describe('User visits root', () => {
         assert.equal(browser.getText('#cake-type'), '');
         assert.equal(browser.getText('#fillings'), '');
         assert.equal(browser.getText('#size'), '');
+        assert.equal(browser.getText('#pickUp'), '');
       });
 
       it('can edit the customer name', () => {
@@ -59,6 +60,17 @@ describe('User visits root', () => {
       browser.url('/');
 
       assert.include(browser.getText('#size'), optionNum);
+    });
+
+    it('accepts the pickUp time', () => {
+      const time = '8:00';
+
+      browser.url('/');
+      browser.selectByVisibleText('#select-pickUp', time)
+      browser.click('#submit-pickUp');
+      browser.url('/');
+
+      assert.include(browser.getText('#pickUp'), time);
     });
   });
 });
