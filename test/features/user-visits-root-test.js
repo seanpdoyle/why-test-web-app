@@ -9,6 +9,7 @@ describe('User visits root', () => {
         assert.equal(browser.getText('#deliver-to'), '');
         assert.equal(browser.getText('#cake-type'), '');
         assert.equal(browser.getText('#fillings'), '');
+        assert.equal(browser.getText('#size'), '');
       });
 
       it('can edit the customer name', () => {
@@ -46,6 +47,18 @@ describe('User visits root', () => {
 
       assert.include(browser.getText('#fillings'), firstChoice);
       assert.include(browser.getText('#fillings'), secondChoice);
+    });
+
+    it('accepts the stack size', () => {
+      const optionText = 'Double Stack';
+      const optionNum = '2';
+
+      browser.url('/');
+      browser.selectByVisibleText('#select-stack', optionText)
+      browser.click('#submit-size');
+      browser.url('/');
+
+      assert.include(browser.getText('#size'), optionNum);
     });
   });
 });

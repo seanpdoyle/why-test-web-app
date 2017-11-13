@@ -38,8 +38,15 @@ router.post('/fillings', async (req, res) => {
 
   const order = await Order.updateOrCreate({fillings});
 
-  res.render('index', { order });
+  res.redirect('/');
 });
 
+router.post('/size', async (req, res) => {
+  const { size } = req.body;
+
+  const order = await Order.updateOrCreate({size});
+
+  res.redirect('/');
+});
 
 module.exports = router;

@@ -152,15 +152,74 @@ describe('Routes', () => {
   });
   
   describe('POST /fillings', () => {
+    it('redirects to the index', async () => {
+      const response = await request(server)
+        .post('/fillings')
+        .type('form');
+
+      assert.equal(response.status, 302);
+      assert.equal(response.headers.location, '/');
+    });
+
     describe('when the Order is new', () => {
       it('creates an order with the selected fillings', async () => {
+        const fillings = ['Chocolate chips', 'Sprinkles'];
+        
         const response = await request(server)
           .post('/fillings')
           .type('form')
-          .send({fillings: ['Chocolate chips', 'Sprinkles']});
+          .send({fillings});
 
         const order = await Order.findOne({});
-        assert.deepEqual(order.fillings.toObject(), ['Chocolate chips', 'Sprinkles']);
+        assert.deepEqual(order.fillings.toObject(), fillings);
+      });
+    });
+
+    describe('when the Order already exists', () => {
+      it('updates the order with the selected fillings', async () => {
+        const first = ['Bacon', 'Banana'];
+        const second = ['Strawberries', 'Blueberries'];
+        await Order.create({fillings: first});
+
+        const response = await request(server)
+          .post('/fillings')
+          .type('form')
+          .send({fillings: second});
+
+        const order = await Order.findOne({});
+        assert.deepEqual(order.fillings.toObject(), second);
+      });
+    });
+  });
+
+  describe('POST /size', () => {
+    describe('when the Order is new', () => {
+      it('creates an order with the selected size', async () => {
+        const size = '6';
+        
+        const response = await request(server)
+          .post('/size')
+          .type('form')
+          .send({size});
+
+        const order = await Order.findOne({});
+        assert.strictEqual(order.size, size);
+      });
+    });
+
+    describe('when the Order already exists', () => {
+      it('updates the order with the selected size', async () => {
+        const oldSize = '5';
+        const newSize= '4';
+        await Order.create({size: oldSize});
+
+        const response = await request(server)
+          .post('/size')
+          .type('form')
+          .send({size: newSize});
+
+        const order = await Order.findOne({});
+        assert.strictEqual(order.size, newSize);
       });
     });
   });

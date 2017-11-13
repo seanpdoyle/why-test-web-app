@@ -19,6 +19,14 @@
   <input id="submit-fillings" type="submit">
 </form>
 
+<form action="/size" method="post">
+  <select id="select-stack" name="size">
+    <option id="single" value="1">Single Stack</option>
+    <option id="double" value="2">Double Stack</option>
+  </select>
+
+  <input id="submit-size" type="submit">
+</form>
 
 <p id="deliver-to">
   {{order.name}}
@@ -34,4 +42,8 @@
 
 <p id="fillings">
   {{order.fillings}}
+</p>
+
+<p id="size">
+  {{order.size}}
 </p>

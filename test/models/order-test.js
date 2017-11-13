@@ -15,27 +15,48 @@ describe('Order', () => {
   describe('.updateOrCreate', () => {
     describe('when a record already exists', () =>{
       it('updates the record', async () => {
-        const existingOrder = await Order.create({ name: 'Hungry Person' })
+        const smallOrder = {
+          name: 'Regular Joe',
+          cakeType: 'Plain',
+          fillings: ['Blueberries'],
+          size: '2',
+        };
+        let bigOrder = {
+          name: 'Big Person',
+          cakeType: 'Plain',
+          fillings: ['Apple', 'Bacon', 'Chocolate Chips'],
+          size: '10',
+        };
+        const existingOrder = await Order.create(smallOrder);
 
-        const order = await Order.updateOrCreate({name: 'Hungrier Person' });
+        const order = await Order.updateOrCreate(bigOrder);
 
         const allOrders = await Order.find({});
         assert.equal(allOrders.length, 1);
-        assert.equal(allOrders[0].name, 'Hungrier Person');
-        assert.equal(order.name, 'Hungrier Person');
+        // toObject resolves issues with mongoose metadata in arrays
+        assert.deepEqual(order.fillings.toObject(), bigOrder.fillings);
+        delete bigOrder.fillings;
+        // check remaining fields
+        assert.include(order, bigOrder);
       });
     });
 
     describe('when a record does not exist', () =>{
       it('creates the record', async () => {
-        const name = 'Hungry Person'
+        let healthyOrder = {
+          name: 'Healthy Person',
+          cakeType: 'Whole Wheat',
+          fillings: ['Macadamia Nuts'],
+          size: '1',
+        }
 
-        const order = await Order.updateOrCreate({name});
+        const order = await Order.updateOrCreate(healthyOrder);
 
         const allOrders = await Order.find({});
         assert.equal(allOrders.length, 1);
-        assert.equal(allOrders[0].name, name);
-        assert.equal(order.name, name);
+        assert.deepEqual(allOrders[0].fillings.toObject(), healthyOrder.fillings);
+        delete healthyOrder.fillings;
+        assert.include(allOrders[0], healthyOrder);
       });
     });
   });
@@ -68,6 +89,16 @@ describe('Order', () => {
 
       // toObject resolves issues with mongoose metadata
       assert.deepEqual(order.fillings.toObject(), fillings);
+    });
+  });
+
+  describe('#size', () => {
+    it('is a String', () => {
+      const sizeAsAnInt = 3;
+
+      const order = new Order({size: sizeAsAnInt});
+
+      assert.strictEqual(order.size, sizeAsAnInt.toString());
     });
   });
 });
