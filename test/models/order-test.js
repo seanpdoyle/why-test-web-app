@@ -15,31 +15,23 @@ describe('Order', () => {
   describe('.updateOrCreate', () => {
     describe('when a record already exists', () =>{
       it('updates the record', async () => {
-        const smallOrder = {
+        const partialOrder = {
           name: 'Regular Joe',
           cakeType: 'Plain',
-          fillings: ['Blueberries'],
           size: '2',
           pickUp: '9:00',
         };
-        let bigOrder = {
-          name: 'Big Person',
-          cakeType: 'Plain',
-          fillings: ['Apple', 'Bacon', 'Chocolate Chips'],
-          size: '10',
-          pickUp: '10:00',
-        };
-        const existingOrder = await Order.create(smallOrder);
+        const update = ['Apple', 'Bacon', 'Chocolate Chips'];
+        const existingOrder = await Order.create(partialOrder);
 
-        const order = await Order.updateOrCreate(bigOrder);
+        const updatedOrder = await Order.updateOrCreate({fillings: update});
 
         const allOrders = await Order.find({});
         assert.equal(allOrders.length, 1);
         // toObject resolves issues with mongoose metadata in arrays
-        assert.deepEqual(order.fillings.toObject(), bigOrder.fillings);
-        delete bigOrder.fillings;
+        assert.deepEqual(updatedOrder.fillings.toObject(), update);
         // check remaining fields
-        assert.include(order, bigOrder);
+        assert.include(updatedOrder, partialOrder);
       });
     });
 

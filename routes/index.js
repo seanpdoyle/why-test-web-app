@@ -9,50 +9,15 @@ router.get('/', async (req, res) => {
   res.render('index', { order });
 });
 
-router.post('/cake-type', async (req, res) => {
-  const {cakeType} = req.body;
+router.post('/place-order', async (req, res) => {
+  const { name, cakeType, fillings, size, pickUp  } = req.body;
 
-  await Order.updateOrCreate({cakeType});
-
-  res.status(302);
+  const order = await Order.updateOrCreate({ name, cakeType, fillings, size, pickUp })
   res.redirect('/');
 });
 
-router.post('/name', async (req, res) => {
-  const { name } = req.body;
-
-  if (name) {
-    const order = await Order.updateOrCreate({ name: name })
-
-    res.status(200);
-    res.render('index', { order });
-  } else {
-    const errors = { name: 'name is required' };
-    res.status(400);
-    res.render('index', { errors });
-  }
-});
-
-router.post('/fillings', async (req, res) => {
-  const { fillings } = req.body;
-
-  const order = await Order.updateOrCreate({fillings});
-
-  res.redirect('/');
-});
-
-router.post('/size', async (req, res) => {
-  const { size } = req.body;
-
-  const order = await Order.updateOrCreate({size});
-
-  res.redirect('/');
-});
-
-router.post('/pickUp', async (req, res) => {
-  const { pickUp } = req.body;
-
-  const order = await Order.updateOrCreate({pickUp});
+router.post('/clear-order', async (req, res) => {
+  await Order.deleteOne({});
 
   res.redirect('/');
 });

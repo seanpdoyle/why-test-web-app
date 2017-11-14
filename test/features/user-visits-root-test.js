@@ -2,27 +2,25 @@ const {assert} = require('chai');
 
 describe('User visits root', () => {
   describe('to post an order', () => {
-    describe('with a customer name', () => {
-      it('starts with a blank order', () => {
-        browser.url('/');
+    it('starts with a blank order', () => {
+      browser.url('/');
 
-        assert.equal(browser.getText('#deliver-to'), '');
-        assert.equal(browser.getText('#cake-type'), '');
-        assert.equal(browser.getText('#fillings'), '');
-        assert.equal(browser.getText('#size'), '');
-        assert.equal(browser.getText('#pickUp'), '');
-      });
+      assert.equal(browser.getText('#deliver-to'), '');
+      assert.equal(browser.getText('#cake-type'), '');
+      assert.equal(browser.getText('#fillings'), '');
+      assert.equal(browser.getText('#size'), '');
+      assert.equal(browser.getText('#pickUp'), '');
+    });
 
-      it('can edit the customer name', () => {
-        const name = 'Hungry Person';
+    it('accepts the customer name', () => {
+      const name = 'Hungry Person';
 
-        browser.url('/');
-        browser.setValue('#name', name);
-        browser.click('#submit-name');
-        browser.url('/');
+      browser.url('/');
+      browser.setValue('#name', name);
+      browser.click('#submit-order');
+      browser.url('/');
 
-        assert.include(browser.getText('#deliver-to'), name);
-      });
+      assert.include(browser.getText('#deliver-to'), name);
     });
 
     it('accepts the cake type', () => {
@@ -30,7 +28,7 @@ describe('User visits root', () => {
 
       browser.url('/');
       browser.click('#whole-wheat');
-      browser.click('#submit-cake-type');
+      browser.click('#submit-order');
       browser.url('/');
 
       assert.include(browser.getText('#cake-type'), cakeType);
@@ -43,7 +41,7 @@ describe('User visits root', () => {
       browser.url('/');
       browser.click('#strawberries');
       browser.click('#banana');
-      browser.click('#submit-fillings');
+      browser.click('#submit-order');
       browser.url('/');
 
       assert.include(browser.getText('#fillings'), firstChoice);
@@ -56,7 +54,7 @@ describe('User visits root', () => {
 
       browser.url('/');
       browser.selectByVisibleText('#select-stack', optionText)
-      browser.click('#submit-size');
+      browser.click('#submit-order');
       browser.url('/');
 
       assert.include(browser.getText('#size'), optionNum);
@@ -67,10 +65,30 @@ describe('User visits root', () => {
 
       browser.url('/');
       browser.selectByVisibleText('#select-pickUp', time)
-      browser.click('#submit-pickUp');
+      browser.click('#submit-order');
       browser.url('/');
 
       assert.include(browser.getText('#pickUp'), time);
+    });
+  });
+
+  describe('to clear an order', () => {
+    it('deletes the selected options', () => {
+      const name = 'Indecisive Person';
+      const time = '10:00';
+
+      browser.url('/');
+      browser.setValue('#name', name);
+      browser.selectByVisibleText('#select-pickUp', time)
+      browser.click('#submit-order');
+      browser.click('#clear-order');
+      browser.url('/');
+
+      assert.equal(browser.getText('#deliver-to'), '');
+      assert.equal(browser.getText('#cake-type'), '');
+      assert.equal(browser.getText('#fillings'), '');
+      assert.equal(browser.getText('#size'), '');
+      assert.equal(browser.getText('#pickUp'), '');
     });
   });
 });

@@ -1,40 +1,30 @@
-<form action="/name" method="post">
+<form action="/place-order" method="post">
   <input id="name" name="name">
-  <input id="submit-name" type="submit">
-</form>
 
-<form action="/cake-type" method="post">
   <label for="whole-wheat">Whole wheat</label>
   <input type="radio" name="cakeType" id="whole-wheat" value="Whole wheat">
 
-  <input id="submit-cake-type" type="submit">
-</form>
-
-<form action="/fillings" method="post">
   <label for="strawberries">Strawberries</label>
   <input type="checkbox" id="strawberries" name="fillings" value="Strawberries"><br>
   <label for="banana">Banana</label>
   <input type="checkbox" id="banana" name="fillings" value="Banana"><br>
 
-  <input id="submit-fillings" type="submit">
-</form>
-
-<form action="/size" method="post">
   <select id="select-stack" name="size">
     <option id="single" value="1">Single Stack</option>
     <option id="double" value="2">Double Stack</option>
   </select>
 
-  <input id="submit-size" type="submit">
-</form>
-
-<form action="/pickUp" method="post">
   <select id="select-pickUp" name="pickUp">
     <option id="8:00" value="8:00">8:00</option>
     <option id="9:00" value="9:00">9:00</option>
+    <option id="10:00" value="10:00">10:00</option>
   </select>
 
-  <input id="submit-pickUp" type="submit">
+  <input id="submit-order" type="submit">
+</form>
+
+<form action="/clear-order" method="post">
+  <input id="clear-order" type="submit" value="Clear">
 </form>
 
 <p id="deliver-to">
