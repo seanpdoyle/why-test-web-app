@@ -5,9 +5,6 @@ const {jsdom} = require('jsdom');
 const app = require('../../app');
 const {mongoose, databaseUrl, options} = require('../../database');
 const Message = require('../../models/message');
-const {port} = require('../../server.config').test;
-
-const PORT = process.env.PORT || port;
 
 const parseTextFromHTML = (htmlAsString, selector) => {
   const selectedElement = jsdom(htmlAsString).querySelector(selector);
@@ -19,17 +16,13 @@ const parseTextFromHTML = (htmlAsString, selector) => {
 };
 
 describe('/messages', () => {
-  let server;
-
   beforeEach('Start server', async () => {
     await mongoose.connect(databaseUrl, options);
     await mongoose.connection.db.dropDatabase();
-    server = await app.listen(PORT);
   });
 
   afterEach('Drop database and close server', async () => {
     await mongoose.disconnect();
-    await server.close();
   });
 
   describe('POST', () => {
@@ -38,7 +31,7 @@ describe('/messages', () => {
         const author = 'Inquisitive User';
         const message = 'Why Test?';
 
-        const response = await request(server)
+        const response = await request(app)
           .post('/messages')
           .type('form')
           .send({author, message});
@@ -50,7 +43,7 @@ describe('/messages', () => {
         const author = 'Inquisitive User';
         const message = 'Why Test?';
 
-        const response = await request(server)
+        const response = await request(app)
           .post('/messages')
           .type('form')
           .send({author, message});
@@ -64,7 +57,7 @@ describe('/messages', () => {
       it('renders an error message', async () => {
         const message = 'Why Test?';
 
-        const response = await request(server)
+        const response = await request(app)
           .post('/messages')
           .send({message});
 
@@ -78,7 +71,7 @@ describe('/messages', () => {
       it('displays an error message', async () => {
         const author = 'A User';
 
-        const response = await request(server)
+        const response = await request(app)
           .post('/messages')
           .send({author});
 
