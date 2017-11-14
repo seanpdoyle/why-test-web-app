@@ -10,7 +10,12 @@ const {port} = require('../../server.config').test;
 const PORT = process.env.PORT || port;
 
 const parseTextFromHTML = (htmlAsString, selector) => {
-  return jsdom(htmlAsString).querySelector(selector).textContent;
+  const selectedElement = jsdom(htmlAsString).querySelector(selector);
+  if (selectedElement !== null) {
+    return selectedElement.textContent;
+  } else {
+    throw new Error(`No element with selector ${selector} found in HTML string`);
+  }
 };
 
 describe('/messages', () => {
