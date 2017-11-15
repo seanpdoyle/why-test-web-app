@@ -5,11 +5,11 @@ describe('User visits root', () => {
     it('starts with a blank order', () => {
       browser.url('/');
 
-      assert.equal(browser.getText('#deliver-to'), '');
-      assert.equal(browser.getText('#cake-type'), '');
-      assert.equal(browser.getText('#fillings'), '');
-      assert.equal(browser.getText('#size'), '');
-      assert.equal(browser.getText('#pickUp'), '');
+      assert.equal(browser.getText('#deliver-to span'), '');
+      assert.equal(browser.getText('#cake-type span'), '');
+      assert.equal(browser.getText('#fillings span'), '');
+      assert.equal(browser.getText('#size span'), '');
+      assert.equal(browser.getText('#pickUp span'), '');
     });
 
     it('accepts the customer name', () => {
@@ -24,7 +24,7 @@ describe('User visits root', () => {
     });
 
     it('accepts the cake type', () => {
-      const cakeType = 'Whole wheat';
+      const cakeType = 'Whole Wheat';
 
       browser.url('/');
       browser.click('#whole-wheat');
@@ -84,11 +84,11 @@ describe('User visits root', () => {
       browser.click('#clear-order');
       browser.url('/');
 
-      assert.equal(browser.getText('#deliver-to'), '');
-      assert.equal(browser.getText('#cake-type'), '');
-      assert.equal(browser.getText('#fillings'), '');
-      assert.equal(browser.getText('#size'), '');
-      assert.equal(browser.getText('#pickUp'), '');
+      assert.equal(browser.getText('#deliver-to span'), '');
+      assert.equal(browser.getText('#cake-type span'), '');
+      assert.equal(browser.getText('#fillings span'), '');
+      assert.equal(browser.getText('#size span'), '');
+      assert.equal(browser.getText('#pickUp span'), '');
     });
   });
 });
