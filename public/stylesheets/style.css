@@ -89,6 +89,10 @@ label, input#name {
   color: #0b3553;
 }
 
+label, input, select {
+  cursor: pointer;
+}
+
 /* used for circular buttons */
 /*
 .button, .clear {
