@@ -2,15 +2,7 @@
 
 const {spawn} = require('child_process');
 
-const appProcess = spawn('bin/www');
-
-appProcess.stdout.on('data', (data) => {
-  console.log(`${data}`);
-});
-
-appProcess.stderr.on('data', (data) => {
-  console.error(`${data}`);
-});
+const appProcess = spawn('bin/www', {stdio: 'inherit'});
 
 let testProcess = null;
 
@@ -18,15 +10,7 @@ process.stdin.on('data', (data) => {
   if (data.toString().trim().toLowerCase() === 'test' && !testProcess) {
 
     console.log('Executing Tests');
-    testProcess = spawn('npm', ['test']);
-
-    testProcess.stdout.on('data', (data) => {
-      console.log(`${data}`);
-    });
-    
-    testProcess.stderr.on('data', (data) => {
-      console.error(`${data}`);
-    });
+    testProcess = spawn('npm', ['test'], {stdio: 'inherit'});
     
     testProcess.on('close', (data) => {
       testProcess = null;
