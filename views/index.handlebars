@@ -1,18 +1,11 @@
   <div class="tracker">
-    <div class="tracker-meter">
-      <div class="image-container" id="bug-1">
+    <div id="tracker-meter" class="tracker-meter">
+      <!--
+      <div class="image-container">
         <img alt-text="bug-image" src="images/bug.svg">
       </div>
-      <div class="image-container" id="bug-2">
-        <img alt-text="bug-image" src="images/bug.svg">
-      </div>
-      <div class="image-container" id="bug-3">
-        <img alt-text="bug-image" src="images/bug.svg">
-      </div>
-      <div class="image-container" id="bug-4">
-        <img alt-text="bug-image" src="images/bug.svg">
-      </div>
-    </div> 
+      -->
+    </div>
     <div class="tracker-name">
       <p>BUG-O-METER</p>
     </div>
@@ -21,10 +14,10 @@
   <div class="banner">
     <h1>CAKE BAR</h1>
   </div>
-  
+
   <div class="body-container">
     <div class="menu">
-      <form action="/place-order" method="post">
+      <form id="cake-form" action="/place-order" method="post">
         <div class="form-container">
           <div class="form-row">
             <h2>Enter your name</h2>
@@ -139,7 +132,7 @@
             <input class="button" id="submit-order" type="submit" value="Place order">
           </div>
         </div>
-      </form> 
+      </form>
 
       <form action="/clear-order" method="post">
         <div class="form-container">
@@ -158,5 +151,5 @@
       <h2 id="pickUp">order status: <span>{{order.pickUp}}</span></h2>
     </div>
   </div>
-    
+
 
