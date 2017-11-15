@@ -4,8 +4,12 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD . /app
+ENV PATH="/usr/local/lib/node_modules/calculator-js/node_modules/.bin/:${PATH}"
 
-RUN npm install
+ADD package.json /app/
+
+RUN npm install -g
+
+ADD . /app
 
 CMD ["npm", "start"]
