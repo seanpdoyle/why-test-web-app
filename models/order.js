@@ -5,7 +5,6 @@ const orderSchema = mongoose.Schema({
   name: { type: String },
   fillings: { type: [] },
   size: { type: String },
-  pickUp: { type: String },
 });
 
 orderSchema.statics.updateOrCreate = async function(attributes, callback) {
@@ -16,7 +15,6 @@ orderSchema.statics.updateOrCreate = async function(attributes, callback) {
     firstOrder.cakeType = attributes.cakeType || firstOrder.cakeType;
     firstOrder.fillings = attributes.fillings || firstOrder.fillings;
     firstOrder.size = attributes.size || firstOrder.size;
-    firstOrder.pickUp = attributes.pickUp || firstOrder.pickUp;
     return firstOrder.save(callback);
   } else {
     return this.create(attributes, callback);

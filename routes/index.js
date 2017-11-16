@@ -9,16 +9,17 @@ router.get('/', async (req, res) => {
   res.render('index', { order });
 });
 
+// Change the line below to fix the regression
+router.post('/place-order', async (req, res) => {
+  await Order.deleteOne({});
+
+  res.redirect('/');
+});
+
 router.post('/place-order', async (req, res) => {
   const { name, cakeType, fillings, size, pickUp  } = req.body;
 
   const order = await Order.updateOrCreate({ name, cakeType, fillings, size, pickUp })
-  res.redirect('/');
-});
-
-router.post('/clear-order', async (req, res) => {
-  await Order.deleteOne({});
-
   res.redirect('/');
 });
 
