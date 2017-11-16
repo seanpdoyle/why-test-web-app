@@ -5,18 +5,20 @@ const orderSchema = mongoose.Schema({
   name: { type: String },
   fillings: { type: [] },
   size: { type: String },
-  pickUp: { type: String },
 });
 
 orderSchema.statics.updateOrCreate = async function(attributes, callback) {
   const firstOrder = await this.findOne({});
 
   if (firstOrder) {
-    firstOrder.name = attributes.name || firstOrder.name;
+    firstOrder.name = attributes.name;
     firstOrder.cakeType = attributes.cakeType || firstOrder.cakeType;
-    firstOrder.fillings = attributes.fillings || firstOrder.fillings;
+    if (attributes.fillings && (typeof attributes.fillings === 'string')) {
+      attributes.fillings = [attributes.fillings];
+    };
+    firstOrder.fillings = 
+      (attributes.fillings && attributes.fillings.slice(0,1)) || firstOrder.fillings.slice(0,1);
     firstOrder.size = attributes.size || firstOrder.size;
-    firstOrder.pickUp = attributes.pickUp || firstOrder.pickUp;
     return firstOrder.save(callback);
   } else {
     return this.create(attributes, callback);

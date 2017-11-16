@@ -135,18 +135,6 @@ describe('Routes', () => {
         const order = await Order.findOne({});
         assert.strictEqual(order.size, size);
       });
-
-      it('creates an order with the selected time', async () => {
-        const pickUp = '8:00';
-        
-        const response = await request(server)
-          .post('/place-order')
-          .type('form')
-          .send({pickUp});
-
-        const order = await Order.findOne({});
-        assert.strictEqual(order.pickUp, pickUp);
-      });
     });
 
     describe('when the Order already exists', () => {
@@ -211,41 +199,6 @@ describe('Routes', () => {
         const order = await Order.findOne({});
         assert.strictEqual(order.size, newSize);
       });
-
-      it('updates the order with the selected pick up time', async () => {
-        const earlyTime = '9:00';
-        const lateTime = '11:00';
-        await Order.create({pickUp: earlyTime});
-
-        const response = await request(server)
-          .post('/place-order')
-          .type('form')
-          .send({pickUp: lateTime});
-
-        const order = await Order.findOne({});
-        assert.strictEqual(order.pickUp, lateTime);
-      });
-    });
-  });
-  
-  describe('POST /clear-order', () => {
-    it('clears all fields', async () => {
-      const newOrder = {
-        name: 'Another Person',
-        cakeType: 'Whole Wheat',
-        fillings: ['Chocolate Chips', 'Banana'],
-        size: '3',
-        pickUp: '12:00',
-      };
-      await Order.create(newOrder);
-
-      const response = await request(server)
-        .post('/clear-order')
-        .type('form')
-        .send({});
-
-      const order = await Order.findOne({});
-      assert.isNull(order);
     });
   });
 });

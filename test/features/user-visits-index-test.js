@@ -9,7 +9,6 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
 
     it('accepts the customer name', () => {
@@ -59,17 +58,6 @@ describe('User visits index', () => {
 
       assert.include(browser.getText('#size'), optionNum);
     });
-
-    it('accepts the pickUp time', () => {
-      const time = '8:00';
-
-      browser.url('/');
-      browser.selectByVisibleText('#select-pickUp', time)
-      browser.click('#submit-order');
-      browser.url('/');
-
-      assert.include(browser.getText('#pickUp'), time);
-    });
   });
 
   describe('to clear an order', () => {
@@ -79,7 +67,6 @@ describe('User visits index', () => {
 
       browser.url('/');
       browser.setValue('#name', name);
-      browser.selectByVisibleText('#select-pickUp', time)
       browser.click('#submit-order');
       browser.click('#clear-order');
       browser.url('/');
@@ -88,7 +75,6 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
   });
 });

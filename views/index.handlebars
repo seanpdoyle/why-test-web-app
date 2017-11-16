@@ -92,9 +92,11 @@
             <div class="input-col">
               <h2>Choose a size</h2>
             </div>
+            <!--
             <div class="input-col">
               <h2>Set a pick up</h2>
             </div>
+            -->
           </div>
 
           <div class="form-row select-row">
@@ -107,7 +109,7 @@
                   <option id="quadruple" value="4">Quadruple Stack</option>
                   <option id="quintuple" value="5">Quintuple Stack</option>
                   <option id="sextuple" value="6">Sextuple Stack</option>
-                  <option id="septuple" value="7">Septuple Stack</option>
+                  <option id="septuple" value="0">Septuple Stack</option>
                   <option id="octuple" value="8">Octuple Stack</option>
                   <option id="nonuple" value="9">Nonuple Stack</option>
                   <option id="decuple" value="10">Decuple Stack</option>
@@ -115,6 +117,7 @@
                 </select>
               </div>
             </div>
+            <!--
             <div class="select-col">
               <div class="styled-select">
                 <select id="select-pickUp" name="pickUp">
@@ -126,6 +129,7 @@
                 </select>
               </div>
             </div>
+            -->
           </div>
 
           <div class="form-row place-order-div">
@@ -134,6 +138,7 @@
         </div>
       </form>
 
+      <!--
       <form action="/clear-order" method="post">
         <div class="form-container">
           <div class="form-row place-order-div">
@@ -141,14 +146,17 @@
           </div>
         </div>
       </form>
+      -->
     </div>
 
     <div class="order">
       <h2 id="deliver-to">deliver to: <span>{{order.name}}</span></h2>
-      <h2 id="cake-type">cake: <span>{{order.cakeType}}</span></h2>
+      <h2 id="cake-type">cake: <span></span></h2>
       <h2 id="fillings">fillings: <span>{{order.fillings}}</span></h2>
       <h2 id="size">pancake count: <span>{{order.size}}</span></h2>
+      <!--
       <h2 id="pickUp">order status: <span>{{order.pickUp}}</span></h2>
+      -->
     </div>
   </div>
 
