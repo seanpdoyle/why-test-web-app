@@ -9,8 +9,7 @@ router.get('/', async (req, res) => {
   res.render('index', { order });
 });
 
-// Change the line below to fix the regression
-router.post('/place-order', async (req, res) => {
+router.post('/clear-order', async (req, res) => {
   await Order.deleteOne({});
   res.redirect('/');
 });

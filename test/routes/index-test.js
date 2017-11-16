@@ -197,7 +197,7 @@ describe('Routes', () => {
       await Order.create(newOrder);
 
       const response = await request(server)
-        .post('/place-order') // Change this to fix the regression
+        .post('/clear-order')
         .type('form')
         .send({});
 
