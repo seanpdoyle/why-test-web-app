@@ -5,7 +5,11 @@ const orderSchema = mongoose.Schema({
   name: { type: String },
   fillings: { type: [] },
   size: { type: String },
-  pickUp: { type: String },
+  pickUp: { 
+    type: String,
+    // Replace the line below to satisfy one of the requirements 
+    enum: ['7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '1:00']
+  }
 });
 
 orderSchema.statics.updateOrCreate = async function(attributes, callback) {

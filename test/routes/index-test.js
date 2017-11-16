@@ -10,7 +10,12 @@ const {port} = require('../../server.config').test;
 const PORT = process.env.PORT || port;
 
 const parseTextFromHTML = (htmlAsString, selector) => {
-  return jsdom(htmlAsString).querySelector(selector).textContent;
+  const selectedElement = jsdom(htmlAsString).querySelector(selector);
+  if (selectedElement !== null) {
+    return selectedElement.textContent;
+  } else {
+    throw new Error(`No element with selector ${selector} found in HTML string`);
+  }
 };
 
 describe('Routes', () => {
@@ -60,22 +65,6 @@ describe('Routes', () => {
   });
 
   describe('POST /place-order', () => {
-    /*
-    it('rejects an empty name', async () => {
-      const name = 'original name';
-      const emptyName = '';
-      const order = await Order.create({ name: 'original name' });
-      const response = await request(server)
-        .post('/place-order')
-        .type('form')
-        .send({ name: emptyName });
-
-      assert.equal(response.status, 400);
-      assert.include(parseTextFromHTML(response.text, 'body'), 'name is required');
-      const reloadedOrder = await Order.findOne();
-      assert.equal(reloadedOrder.name, name, 'Order name is not overwritten');
-    });
-    */
     it('redirects to the index', async () => {
       const response = await request(server)
         .post('/place-order')
@@ -86,6 +75,19 @@ describe('Routes', () => {
     });
 
     describe('when the Order is new', () => {
+      // Add the new test here
+      it('creates an order with the selected time', async () => {
+        const pickUp = '8:00';
+        
+        const response = await request(server)
+          .post('/place-order')
+          .type('form')
+          .send({pickUp});
+
+        const order = await Order.findOne({});
+        assert.strictEqual(order.pickUp, pickUp);
+      });
+
       it('sets the name on the order', async () => {
         const name = 'Inquisitive User';
 
@@ -95,7 +97,6 @@ describe('Routes', () => {
           .send({name})
 
         assert.equal(response.status, 302);
-        //assert.include(parseTextFromHTML(response.text, '#deliver-to'), name);
         const order = await Order.findOne();
         assert.equal(order.name, name);
       });
@@ -135,18 +136,6 @@ describe('Routes', () => {
         const order = await Order.findOne({});
         assert.strictEqual(order.size, size);
       });
-
-      it('creates an order with the selected time', async () => {
-        const pickUp = '8:00';
-        
-        const response = await request(server)
-          .post('/place-order')
-          .type('form')
-          .send({pickUp});
-
-        const order = await Order.findOne({});
-        assert.strictEqual(order.pickUp, pickUp);
-      });
     });
 
     describe('when the Order already exists', () => {
@@ -165,8 +154,6 @@ describe('Routes', () => {
           .send({name: updatedName});
 
         assert.equal(response.status, 302);
-        //assert.include(response.text, updatedName);
-        //assert.notInclude(response.text, initialName);
         const order = await Order.findOne();
         assert.equal(order.name, updatedName);
       });
@@ -210,20 +197,6 @@ describe('Routes', () => {
 
         const order = await Order.findOne({});
         assert.strictEqual(order.size, newSize);
-      });
-
-      it('updates the order with the selected pick up time', async () => {
-        const earlyTime = '9:00';
-        const lateTime = '11:00';
-        await Order.create({pickUp: earlyTime});
-
-        const response = await request(server)
-          .post('/place-order')
-          .type('form')
-          .send({pickUp: lateTime});
-
-        const order = await Order.findOne({});
-        assert.strictEqual(order.pickUp, lateTime);
       });
     });
   });

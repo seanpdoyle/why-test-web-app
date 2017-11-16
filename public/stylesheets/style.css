@@ -93,28 +93,6 @@ label, input, select {
   cursor: pointer;
 }
 
-/* used for circular buttons */
-/*
-.button, .clear {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 0px;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size; 14px;
-  font-weight: 600;
-  */
-  /* prevents font-family override by system ui */
-  /*
-  font-family: Montserrat, sans-serif;
-  letter-spacing: 0.3px;
-  box-shadow: -3px 0px #c32362;
-  background-color: #e44480;
-}
-*/
-
-
 .menu {
   /* intended svg dimensions are 552px 741px 
   * 552 - (25 + 100) = 427 
@@ -214,7 +192,7 @@ select {
   box-shadow: -3px 0px #c32362;
 }
 
-.order {
+.ticket {
   /* intended svg dimensions are 430px 266px
   * 430 - (70 + 30) = 330 
   * 266 - (50 + 50) = 166

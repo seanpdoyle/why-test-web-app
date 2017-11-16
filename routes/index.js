@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 router.post('/place-order', async (req, res) => {
   const { name, cakeType, fillings, size, pickUp  } = req.body;
 
-  const order = await Order.updateOrCreate({ name, cakeType, fillings, size, pickUp })
+  const order = await Order.updateOrCreate({ name, cakeType, fillings, size, pickUp });
   res.redirect('/');
 });
 

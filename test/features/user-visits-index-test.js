@@ -1,4 +1,14 @@
 const {assert} = require('chai');
+const {jsdom} = require('jsdom');
+
+const parseTextFromHTML = (htmlAsString, selector) => {
+  const selectedElement = jsdom(htmlAsString).querySelector(selector);
+  if (selectedElement !== null) {
+    return selectedElement.textContent;
+  } else {
+    throw new Error(`No element with selector ${selector} found in HTML string`);
+  }
+};
 
 describe('User visits index', () => {
   describe('to post an order', () => {
@@ -10,6 +20,19 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
       assert.equal(browser.getText('#pickUp span'), '');
+    });
+
+    // Add the new test here
+    it('does not provide options outside of working hours', () => {
+      const earlyHr = '7:00';
+      const lateHr = '1:00';
+
+      browser.url('/');
+      const HTML = browser.getHTML('body');
+      const parsedHTML = parseTextFromHTML(HTML, '#select-pickUp');
+
+      assert.notInclude(parsedHTML, earlyHr);
+      assert.notInclude(parsedHTML, lateHr);
     });
 
     it('accepts the customer name', () => {
@@ -58,17 +81,6 @@ describe('User visits index', () => {
       browser.url('/');
 
       assert.include(browser.getText('#size'), optionNum);
-    });
-
-    it('accepts the pickUp time', () => {
-      const time = '8:00';
-
-      browser.url('/');
-      browser.selectByVisibleText('#select-pickUp', time)
-      browser.click('#submit-order');
-      browser.url('/');
-
-      assert.include(browser.getText('#pickUp'), time);
     });
   });
 

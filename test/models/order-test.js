@@ -97,13 +97,20 @@ describe('Order', () => {
     });
   });
 
+  // Add new test here
   describe('#pickUp', () => {
-    it('is a String', () => {
-      const pickUp= '10:00';
+    it('raises error for invalid hours', async () => {
+      const earlyHr= '7:00';
+      const lateHr= '1:00';
 
-      const order = new Order({pickUp});
+      const earlyOrder = new Order({pickUp: earlyHr});
+      const lateOrder = new Order({pickUp: lateHr});
 
-      assert.strictEqual(order.pickUp, pickUp);
+      const earlyErr = earlyOrder.validateSync();
+      const lateErr = lateOrder.validateSync();
+
+      assert.isOk(earlyOrder.errors, `Order with pickUp value ${earlyHr} should create an error upon validation`);
+      assert.isOk(lateOrder.errors, `Order with pickUp value ${lateHr} should create an error upon validation`);
     });
   });
 });

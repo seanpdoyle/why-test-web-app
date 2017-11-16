@@ -1,16 +1,3 @@
-  <div class="tracker">
-    <div id="tracker-meter" class="tracker-meter">
-      <!--
-      <div class="image-container">
-        <img alt-text="bug-image" src="images/bug.svg">
-      </div>
-      -->
-    </div>
-    <div class="tracker-name">
-      <p>BUG-O-METER</p>
-    </div>
-  </div>
-
   <div class="banner">
     <h1>CAKE BAR</h1>
   </div>
@@ -28,11 +15,6 @@
               <div class="name-col-1">
                 <input type="text" id="name" name="name" value="">
               </div>
-              <!--
-              <div class="name-col-2">
-                <input class="submit" type="submit" value="Submit">
-              </div>
-              -->
             </div>
           </div>
 
@@ -118,6 +100,8 @@
             <div class="select-col">
               <div class="styled-select">
                 <select id="select-pickUp" name="pickUp">
+                  <!-- Remove the line containing 7:00-->
+                  <option id="7:00" value="7:00">7:00</option>
                   <option id="8:00" value="8:00">8:00</option>
                   <option id="9:00" value="9:00">9:00</option>
                   <option id="10:00" value="10:00">10:00</option>
@@ -148,7 +132,7 @@
       <h2 id="cake-type">cake: <span>{{order.cakeType}}</span></h2>
       <h2 id="fillings">fillings: <span>{{order.fillings}}</span></h2>
       <h2 id="size">pancake count: <span>{{order.size}}</span></h2>
-      <h2 id="pickUp">order status: <span>{{order.pickUp}}</span></h2>
+      <h2 id="pickUp">pick up time: <span>{{order.pickUp}}</span></h2>
     </div>
   </div>
 
