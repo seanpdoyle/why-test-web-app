@@ -214,7 +214,7 @@ select {
   box-shadow: -3px 0px #c32362;
 }
 
-.ticket {
+.order {
   /* intended svg dimensions are 430px 266px
   * 430 - (70 + 30) = 330 
   * 266 - (50 + 50) = 166

@@ -1,6 +1,6 @@
 const {assert} = require('chai');
 
-describe('User visits root', () => {
+describe('User visits index', () => {
   describe('to post an order', () => {
     it('starts with a blank order', () => {
       browser.url('/');
