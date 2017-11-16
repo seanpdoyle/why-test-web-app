@@ -23,18 +23,9 @@ describe('User visits index', () => {
     });
 
     // Add the new test here
-    it('does not provide options outside of working hours', () => {
-      const earlyHr = '7:00';
-      const lateHr = '1:00';
 
-      browser.url('/');
-      const HTML = browser.getHTML('body');
-      const parsedHTML = parseTextFromHTML(HTML, '#select-pickUp');
-
-      assert.notInclude(parsedHTML, earlyHr);
-      assert.notInclude(parsedHTML, lateHr);
-    });
-
+    
+    
     it('accepts the customer name', () => {
       const name = 'Hungry Person';
 

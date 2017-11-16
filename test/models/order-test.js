@@ -98,19 +98,6 @@ describe('Order', () => {
   });
 
   // Add new test here
-  describe('#pickUp', () => {
-    it('raises error for invalid hours', async () => {
-      const earlyHr= '7:00';
-      const lateHr= '1:00';
 
-      const earlyOrder = new Order({pickUp: earlyHr});
-      const lateOrder = new Order({pickUp: lateHr});
 
-      const earlyErr = earlyOrder.validateSync();
-      const lateErr = lateOrder.validateSync();
-
-      assert.isOk(earlyOrder.errors, `Order with pickUp value ${earlyHr} should create an error upon validation`);
-      assert.isOk(lateOrder.errors, `Order with pickUp value ${lateHr} should create an error upon validation`);
-    });
-  });
 });
