@@ -2,7 +2,8 @@ const {assert} = require('chai');
 
 describe('User visits index', () => {
   describe('to post an order', () => {
-    it('starts with a blank order', () => {
+    it('starts with a blank order', () => { 
+      // Edit the string above
       browser.url('/');
 
       assert.equal(browser.getText('#deliver-to span'), '');
