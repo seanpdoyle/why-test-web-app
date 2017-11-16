@@ -60,21 +60,4 @@ describe('User visits index', () => {
     });
   });
 
-  describe('to clear an order', () => {
-    it('deletes the selected options', () => {
-      const name = 'Indecisive Person';
-      const time = '10:00';
-
-      browser.url('/');
-      browser.setValue('#name', name);
-      browser.click('#submit-order');
-      browser.click('#clear-order');
-      browser.url('/');
-
-      assert.equal(browser.getText('#deliver-to span'), '');
-      assert.equal(browser.getText('#cake-type span'), '');
-      assert.equal(browser.getText('#fillings span'), '');
-      assert.equal(browser.getText('#size span'), '');
-    });
-  });
 });

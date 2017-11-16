@@ -28,11 +28,6 @@
               <div class="name-col-1">
                 <input type="text" id="name" name="name" value="">
               </div>
-              <!--
-              <div class="name-col-2">
-                <input class="submit" type="submit" value="Submit">
-              </div>
-              -->
             </div>
           </div>
 
@@ -92,11 +87,6 @@
             <div class="input-col">
               <h2>Choose a size</h2>
             </div>
-            <!--
-            <div class="input-col">
-              <h2>Set a pick up</h2>
-            </div>
-            -->
           </div>
 
           <div class="form-row select-row">
@@ -109,7 +99,7 @@
                   <option id="quadruple" value="4">Quadruple Stack</option>
                   <option id="quintuple" value="5">Quintuple Stack</option>
                   <option id="sextuple" value="6">Sextuple Stack</option>
-                  <option id="septuple" value="0">Septuple Stack</option>
+                  <option id="septuple" value="7">Septuple Stack</option>
                   <option id="octuple" value="8">Octuple Stack</option>
                   <option id="nonuple" value="9">Nonuple Stack</option>
                   <option id="decuple" value="10">Decuple Stack</option>
@@ -117,19 +107,6 @@
                 </select>
               </div>
             </div>
-            <!--
-            <div class="select-col">
-              <div class="styled-select">
-                <select id="select-pickUp" name="pickUp">
-                  <option id="8:00" value="8:00">8:00</option>
-                  <option id="9:00" value="9:00">9:00</option>
-                  <option id="10:00" value="10:00">10:00</option>
-                  <option id="11:00" value="11:00">11:00</option>
-                  <option id="12:00" value="12:00">12:00</option>
-                </select>
-              </div>
-            </div>
-            -->
           </div>
 
           <div class="form-row place-order-div">
@@ -138,25 +115,13 @@
         </div>
       </form>
 
-      <!--
-      <form action="/clear-order" method="post">
-        <div class="form-container">
-          <div class="form-row place-order-div">
-            <input class="button" id="clear-order" type="submit" value="Clear">
-          </div>
-        </div>
-      </form>
-      -->
     </div>
 
     <div class="order">
       <h2 id="deliver-to">deliver to: <span>{{order.name}}</span></h2>
-      <h2 id="cake-type">cake: <span></span></h2>
+      <h2 id="cake-type">cake: <span>{{order.cakeType}}</span></h2>
       <h2 id="fillings">fillings: <span>{{order.fillings}}</span></h2>
       <h2 id="size">pancake count: <span>{{order.size}}</span></h2>
-      <!--
-      <h2 id="pickUp">order status: <span>{{order.pickUp}}</span></h2>
-      -->
     </div>
   </div>
 
