@@ -61,4 +61,6 @@ describe('User visits index', () => {
     });
   });
 
+  // Add "clear order" test here
+
 });
