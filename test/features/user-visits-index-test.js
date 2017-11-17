@@ -22,7 +22,7 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#pickUp span'), '');
     });
 
-    // Add the new test here
+    // Add the new tests here
     it('does not provide options outside of working hours', () => {
       const earlyHr = '7:00';
       const lateHr = '13:00';
@@ -33,6 +33,27 @@ describe('User visits index', () => {
 
       assert.notInclude(parsedHTML, earlyHr);
       assert.notInclude(parsedHTML, lateHr);
+    });
+
+    it('displays the selected hour', () => {
+      const hour = '9:00';
+
+      browser.url('/');
+      browser.selectByVisibleText('#select-pickUp', hour);
+      browser.click('#submit-order');
+      browser.url('/');
+
+      assert.include(browser.getText('#pickUp'), hour);
+    });
+
+    it('labels the pick up hour correctly', () => {
+      const label = 'pick up time:';
+
+      browser.url('/');
+      const HTML = browser.getHTML('body');
+      const parsedHTML = parseTextFromHTML(HTML, '#pickUp');
+
+      assert.include(parsedHTML, label);
     });
 
     it('accepts the customer name', () => {

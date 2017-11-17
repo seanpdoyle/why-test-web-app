@@ -7,8 +7,6 @@ const orderSchema = mongoose.Schema({
   size: { type: String },
   pickUp: { 
     type: String,
-    // Replace the line below to satisfy one of the requirements 
-    enum: ['8:00', '9:00', '10:00', '11:00', '12:00']
   }
 });
 
