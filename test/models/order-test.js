@@ -101,7 +101,7 @@ describe('Order', () => {
   describe('#pickUp', () => {
     it('raises error for invalid hours', () => {
       const earlyHr= '7:00';
-      const lateHr= '1:00';
+      const lateHr= '13:00';
 
       const earlyOrder = new Order({pickUp: earlyHr});
       const lateOrder = new Order({pickUp: lateHr});
