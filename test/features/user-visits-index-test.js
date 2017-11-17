@@ -19,10 +19,9 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
 
-    // Add the new tests here
+    // Add the 'outside of working hours' test here
     it('does not provide options outside of working hours', () => {
       const earlyHr = '7:00';
       const lateHr = '13:00';
@@ -35,6 +34,7 @@ describe('User visits index', () => {
       assert.notInclude(parsedHTML, lateHr);
     });
 
+    // Add the 'displays the selected hour' test here
     it('displays the selected hour', () => {
       const hour = '9:00';
 
@@ -46,6 +46,7 @@ describe('User visits index', () => {
       assert.include(browser.getText('#pickUp'), hour);
     });
 
+    // Add the 'labels the pick up hour' test here
     it('labels the pick up hour correctly', () => {
       const label = 'pick up time:';
 
@@ -121,7 +122,6 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
   });
 });
