@@ -101,7 +101,8 @@
               <div class="styled-select">
                 <select id="select-pickUp" name="pickUp">
                   <option id="8:00" value="8:00">8:00</option>
-                  <option id="9:00" value="9:00">9:00</option>
+                  <!-- Fix the value below -->
+                  <option id="9:00" value="9">9:00</option>
                   <option id="10:00" value="10:00">10:00</option>
                   <option id="11:00" value="11:00">11:00</option>
                   <option id="12:00" value="12:00">12:00</option>
@@ -132,7 +133,8 @@
       <h2 id="cake-type">cake: <span>{{order.cakeType}}</span></h2>
       <h2 id="fillings">fillings: <span>{{order.fillings}}</span></h2>
       <h2 id="size">pancake count: <span>{{order.size}}</span></h2>
-      <h2 id="pickUp">pick up time: <span>{{order.pickUp}}</span></h2>
+      <!-- Fix the header below -->
+      <h2 id="pickUp">drop off time: <span>{{order.pickUp}}</span></h2>
     </div>
   </div>
 

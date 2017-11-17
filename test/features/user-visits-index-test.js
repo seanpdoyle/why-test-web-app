@@ -19,13 +19,17 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
 
-    // Add the new test here
+    // Add the 'outside of working hours' test here
 
+
+    // Add the 'displays the selected hour' test here
     
     
+    // Add the 'labels the pick up hour' test here
+
+
     it('accepts the customer name', () => {
       const name = 'Hungry Person';
 
@@ -91,7 +95,6 @@ describe('User visits index', () => {
       assert.equal(browser.getText('#cake-type span'), '');
       assert.equal(browser.getText('#fillings span'), '');
       assert.equal(browser.getText('#size span'), '');
-      assert.equal(browser.getText('#pickUp span'), '');
     });
   });
 });
