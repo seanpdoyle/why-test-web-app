@@ -25,7 +25,7 @@ describe('User visits index', () => {
     // Add the new test here
     it('does not provide options outside of working hours', () => {
       const earlyHr = '7:00';
-      const lateHr = '1:00';
+      const lateHr = '13:00';
 
       browser.url('/');
       const HTML = browser.getHTML('body');

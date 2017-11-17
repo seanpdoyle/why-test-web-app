@@ -99,7 +99,7 @@ describe('Order', () => {
 
   // Add new test here
   describe('#pickUp', () => {
-    it('raises error for invalid hours', async () => {
+    it('raises error for invalid hours', () => {
       const earlyHr= '7:00';
       const lateHr= '1:00';
 
